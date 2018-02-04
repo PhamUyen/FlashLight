@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:background="#fefdfd"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="5dp"
+    android:orientation="vertical"
+    >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/itemContact"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/imvProfile"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/contactnotfound"/>
+
+        <LinearLayout
+            android:layout_toRightOf="@+id/imvProfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:textColor="@color/color_black"
+                android:textSize="17sp"
+                android:id="@+id/tvName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="name"/>
+
+            <TextView
+                android:textColor="@color/color_gray_bold"
+                android:textSize="14sp"
+                android:id="@+id/tvNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="number"/>
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/imvStatus"
+            android:layout_width="18dp"
+            android:layout_height="64dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/flash_off"
+            />
+    </RelativeLayout>
+    <View
+        android:background="@color/color_gray_bold"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"/>
+</LinearLayout>

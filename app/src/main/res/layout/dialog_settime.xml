@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@drawable/bg_dialog"
+    android:orientation="vertical"
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:textStyle="bold"
+        android:textSize="17sp"
+        android:textColor="#000000"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Automatically turn off"/>
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RadioButton
+            android:id="@+id/rb10s"
+            android:tag="10s"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="10 Seconds"/>
+        <RadioButton
+            android:id="@+id/rb20s"
+            android:tag="20s"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="20 Seconds"/>
+        <RadioButton
+            android:id="@+id/rb1m"
+            android:tag="1m"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="1 Minute"/>
+        <RadioButton
+            android:id="@+id/rb3m"
+            android:tag="3m"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="3 Minutes"/>
+        <RadioButton
+            android:id="@+id/rb5m"
+            android:tag="5m"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="5 Minutes"/>
+        <RadioButton
+            android:id="@+id/rb10m"
+            android:tag="10m"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="10 Minutes"/>
+        <RadioButton
+            android:id="@+id/rb30m"
+            android:tag="30m"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="30 Minutes"/>
+        <RadioButton
+            android:id="@+id/rbNever"
+            android:tag="never"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Never"/>
+    </RadioGroup>
+    <Button
+        android:id="@+id/btnOK"
+        android:layout_gravity="end"
+        android:background="#00000000"
+        android:textColor="#2c9c48"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="OK"
+        />
+</LinearLayout>

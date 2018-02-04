@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@mipmap/ic_launcher_round"
+            android:title="@string/nav_home" />
+        <item
+            android:id="@+id/nav_home2"
+            android:icon="@mipmap/ic_launcher_round"
+            android:title="@string/nav_photos" />
+        <item
+            android:id="@+id/nav_home3"
+            android:icon="@mipmap/ic_launcher_round"
+            android:title="@string/nav_movies" />
+
+        <item
+            android:id="@+id/nav_home4"
+            android:icon="@mipmap/ic_launcher_round"
+            android:title="@string/nav_notifications" />
+    </group>
+</menu>
