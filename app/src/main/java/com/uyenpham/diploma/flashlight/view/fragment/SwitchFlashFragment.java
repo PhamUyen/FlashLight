@@ -1,5 +1,6 @@
 package com.uyenpham.diploma.flashlight.view.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 import com.uyenpham.diploma.flashlight.R;
 import com.uyenpham.diploma.flashlight.utils.FlashUtil;
 import com.uyenpham.diploma.flashlight.utils.PreferenceUtils;
+import com.uyenpham.diploma.flashlight.view.activity.MapActivity;
 import com.uyenpham.diploma.flashlight.view.customview.CustomTimeDialog;
 import com.uyenpham.diploma.flashlight.view.customview.TextSeekbarView;
 
@@ -41,6 +43,7 @@ public class SwitchFlashFragment extends Fragment implements SeekBar.OnSeekBarCh
         seekBar = view.findViewById(R.id.seekbar);
         textSeekbarView = view.findViewById(R.id.seekbarText);
         btnSwitch = view.findViewById(R.id.button_switch);
+        view.findViewById(R.id.rltCompass).setOnClickListener(this);
 
         seekBar.setOnSeekBarChangeListener(this);
         btnSwitch.setOnClickListener(this);
@@ -112,6 +115,9 @@ public class SwitchFlashFragment extends Fragment implements SeekBar.OnSeekBarCh
                     }
                 });
                 customDialog.show();
+                break;
+            case R.id.rltCompass:
+                startActivity(new Intent(getActivity(), MapActivity.class));
                 break;
             default:
                 break;

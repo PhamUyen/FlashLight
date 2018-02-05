@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:background="@color/color_blue"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:id="@+id/map"
+              tools:context=".MapsActivity"
+              android:name="com.google.android.gms.maps.SupportMapFragment" />
+<com.uyenpham.diploma.flashlight.view.customview.CompassMapCoverView
+    android:id="@+id/coverView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"/>
+    <ImageView
+        android:id="@+id/btnBack"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/morse_back"/>
+</RelativeLayout>

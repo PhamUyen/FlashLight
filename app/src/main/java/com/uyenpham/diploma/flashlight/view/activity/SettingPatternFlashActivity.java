@@ -63,7 +63,7 @@ public class SettingPatternFlashActivity extends Activity implements View.OnClic
         switch (view.getId()) {
             case R.id.tvBack:
             case R.id.imvBack:
-                finish();
+               finish();
                 break;
             default:
                 break;
