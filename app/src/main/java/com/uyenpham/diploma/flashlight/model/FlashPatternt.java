@@ -6,13 +6,14 @@ package com.uyenpham.diploma.flashlight.model;
 
 public class FlashPatternt {
     private String name;
+    private String timeStr;
     private int time;
     private int tpye;
 
-    public FlashPatternt(String name, int time, int tpye) {
+    public FlashPatternt(String name, int time, String timeStr) {
         this.name = name;
         this.time = time;
-        this.tpye = tpye;
+        this.timeStr = timeStr;
     }
 
     public String getName() {
@@ -37,5 +38,13 @@ public class FlashPatternt {
 
     public void setTpye(int tpye) {
         this.tpye = tpye;
+    }
+
+    public String getTimeStr() {
+        return timeStr;
+    }
+
+    public void setTimeStr(String timeStr) {
+        this.timeStr = timeStr;
     }
 }
