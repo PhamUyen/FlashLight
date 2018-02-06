@@ -1,13 +1,16 @@
 package com.uyenpham.diploma.flashlight.model;
 
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+
+import java.io.Serializable;
 
 /**
  * Created by Ka on 2/4/2018.
  */
 
-public class App {
-    private Drawable icon;
+public class App implements Serializable{
+    private Bitmap icon;
     private String name;
     private boolean isFlash;
     private int patternFlash;
@@ -15,18 +18,18 @@ public class App {
     public App() {
     }
 
-    public App(Drawable icon, String name, boolean isFlash, int patternFlash) {
+    public App(Bitmap icon, String name, boolean isFlash, int patternFlash) {
         this.icon = icon;
         this.name = name;
         this.isFlash = isFlash;
         this.patternFlash = patternFlash;
     }
 
-    public Drawable getIcon() {
+    public Bitmap getIcon() {
         return icon;
     }
 
-    public void setIcon(Drawable icon) {
+    public void setIcon(Bitmap icon) {
         this.icon = icon;
     }
 

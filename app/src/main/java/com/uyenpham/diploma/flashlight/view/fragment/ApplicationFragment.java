@@ -1,7 +1,9 @@
 package com.uyenpham.diploma.flashlight.view.fragment;
 
+import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -13,6 +15,8 @@ import android.view.ViewGroup;
 
 import com.uyenpham.diploma.flashlight.R;
 import com.uyenpham.diploma.flashlight.model.App;
+import com.uyenpham.diploma.flashlight.utils.Const;
+import com.uyenpham.diploma.flashlight.view.activity.SettingPatternFlashActivity;
 import com.uyenpham.diploma.flashlight.view.adapter.ApplicationAdapter;
 import com.uyenpham.diploma.flashlight.view.adapter.ContactAdapter;
 import com.uyenpham.diploma.flashlight.view.adapter.IRecycleListener;
@@ -55,7 +59,7 @@ public class ApplicationFragment extends Fragment implements IRecycleListener{
             try {
                 if (null != packageManager.getLaunchIntentForPackage(info.packageName)) {
                     if ((info.flags & ApplicationInfo.FLAG_SYSTEM) != 1) {
-                        applist.add(new App(info.loadIcon(packageManager),info.loadLabel(packageManager).toString(),false, 1));
+                        applist.add(new App(((BitmapDrawable)info.loadIcon(packageManager)).getBitmap(),info.loadLabel(packageManager).toString(),false, 1));
 
                     }
                 }
@@ -69,7 +73,14 @@ public class ApplicationFragment extends Fragment implements IRecycleListener{
 
     @Override
     public void onClick(View view, int position) {
-
+        Bundle bundle = new Bundle();
+        bundle.putString(Const.KEY_NAME, listApp.get(position).getName());
+        bundle.putParcelable(Const.KEY_IMAGE,listApp.get(position).getIcon());
+        bundle.putBoolean(Const.KEY_FLASH, listApp.get(position).isFlash());
+        bundle.putInt(Const.KEY_TYPE,Const.TYPE_APP);
+        Intent intent = new Intent(getActivity(), SettingPatternFlashActivity.class);
+        intent.putExtra(Const.KEY_BUNDLE, bundle);
+        startActivity(intent);
     }
 
     @Override

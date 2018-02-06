@@ -51,7 +51,7 @@ public class ApplicationAdapter extends RecyclerView.Adapter<ApplicationAdapter.
             holder.imvStatus.setImageResource(R.mipmap.flash_off);
             holder.tvNumber.setText(context.getResources().getString(R.string.txt_none));
         }
-        holder.imvIconApp.setImageDrawable(app.getIcon());
+        holder.imvIconApp.setImageBitmap(app.getIcon());
         holder.item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

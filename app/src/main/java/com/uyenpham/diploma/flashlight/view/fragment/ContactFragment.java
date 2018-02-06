@@ -91,6 +91,7 @@ public class ContactFragment extends android.support.v4.app.Fragment implements 
     public void onClick(View view, int position) {
         Bundle bundle = new Bundle();
         bundle.putSerializable(Const.KEY_CONTACT, listContact.get(position));
+        bundle.putInt(Const.KEY_TYPE,Const.TYPE_CONTACT);
         Intent intent = new Intent(getActivity(), SettingPatternFlashActivity.class);
         intent.putExtra(Const.KEY_BUNDLE, bundle);
         startActivity(intent);
