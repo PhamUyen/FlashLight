@@ -12,6 +12,17 @@
         android:permissionGroup="android.permission-group.HARDWARE_CONTROLS"
         android:protectionLevel="normal"
         />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-feature
+        android:name="android.hardware.location"
+        android:required="true" />
+
+    <uses-feature
+        android:name="android.hardware.location.gps"
+        android:required="true" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -19,6 +30,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyD6O61E1buiIaHU6op2vqPeh0eshqhBqXo" />
         <activity android:name=".view.activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -28,6 +42,7 @@
         </activity>
         <activity android:name=".view.activity.SettingPatternFlashActivity"/>
         <activity android:name=".view.activity.ChoosePatternActivity"/>
+        <activity android:name=".view.activity.MapActivity"/>
     </application>
 
 </manifest>

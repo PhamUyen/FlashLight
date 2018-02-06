@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "110517643239",
+    "project_id": "flashlight-1517838087694"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:110517643239:android:13a142e2a6759558",
+        "android_client_info": {
+          "package_name": "com.uyenpham.diploma.flashlight"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "110517643239-746ctrposorqo62hl1ebcdsl4a51rmps.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "110517643239-s8s71u87380v4ufhs4b0cbdbpbqev0jv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.uyenpham.diploma.flashlight",
+            "certificate_hash": "fb8b98f912f425dddf53e41221be275a8310a6ea"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDHAZD3iLV3ObWj2P3xXsLNhofkAoUYhHg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
