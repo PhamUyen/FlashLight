@@ -1,6 +1,8 @@
 package com.uyenpham.diploma.flashlight.view.activity;
 
+import android.Manifest;
 import android.app.ActionBar;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -187,12 +189,12 @@ public class MainActivity extends AppCompatActivity {
                 return photosFragment;
             case 2:
                 // movies fragment
-                SettingFragment moviesFragment = new SettingFragment();
-                return moviesFragment;
-            case 3:
                 // notifications fragment
                 ApplicationFragment notificationsFragment = new ApplicationFragment();
                 return notificationsFragment;
+            case 3:
+                SettingFragment moviesFragment = new SettingFragment();
+                return moviesFragment;
             default:
                 return new SwitchFlashFragment();
         }
@@ -309,7 +311,8 @@ public class MainActivity extends AppCompatActivity {
         // disable receiver and finish app if not allow
         if (PERMISSIONS_REQ_CODE == requestCode) {
             if (grantResults.length > 0) {
-                if (grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED
+                        && grantResults[2] == PackageManager.PERMISSION_GRANTED && grantResults[3] == PackageManager.PERMISSION_GRANTED) {
                     Toast.makeText(this, "permissrion granted", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -321,15 +324,19 @@ public class MainActivity extends AppCompatActivity {
                 android.Manifest.permission.ACCESS_FINE_LOCATION);
         int SecondPermissionResult = ContextCompat.checkSelfPermission(getApplicationContext(),
                 CAMERA);
+        int thirdPer = ContextCompat.checkSelfPermission(getApplicationContext(),android.Manifest.permission.READ_CONTACTS);
+        int fourPer = ContextCompat.checkSelfPermission(getApplicationContext(),Manifest.permission.RECEIVE_SMS);
         return FirstPermissionResult == PackageManager.PERMISSION_GRANTED &&
-                SecondPermissionResult == PackageManager.PERMISSION_GRANTED;
+                SecondPermissionResult == PackageManager.PERMISSION_GRANTED &&
+                thirdPer == PackageManager.PERMISSION_GRANTED &&
+                fourPer == PackageManager.PERMISSION_GRANTED;
     }
 
     //send request permission for camera(flash)
     private void requestPermission() {
         ActivityCompat.requestPermissions(this, new String[]
                 {android.Manifest.permission.ACCESS_FINE_LOCATION,
-                        CAMERA
+                        CAMERA,android.Manifest.permission.READ_CONTACTS, Manifest.permission.RECEIVE_SMS
                 }, PERMISSIONS_REQ_CODE);
 
     }

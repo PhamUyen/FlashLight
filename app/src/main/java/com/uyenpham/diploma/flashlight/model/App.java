@@ -1,11 +1,13 @@
 package com.uyenpham.diploma.flashlight.model;
 
+import android.graphics.drawable.Drawable;
+
 /**
  * Created by Ka on 2/4/2018.
  */
 
 public class App {
-    private String icon;
+    private Drawable icon;
     private String name;
     private boolean isFlash;
     private int patternFlash;
@@ -13,18 +15,18 @@ public class App {
     public App() {
     }
 
-    public App(String icon, String name, boolean isFlash, int patternFlash) {
+    public App(Drawable icon, String name, boolean isFlash, int patternFlash) {
         this.icon = icon;
         this.name = name;
         this.isFlash = isFlash;
         this.patternFlash = patternFlash;
     }
 
-    public String getIcon() {
+    public Drawable getIcon() {
         return icon;
     }
 
-    public void setIcon(String icon) {
+    public void setIcon(Drawable icon) {
         this.icon = icon;
     }
 

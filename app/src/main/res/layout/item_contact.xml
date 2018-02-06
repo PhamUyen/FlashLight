@@ -16,8 +16,8 @@
 
         <ImageView
             android:id="@+id/imvProfile"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:src="@mipmap/contactnotfound"/>
@@ -32,19 +32,19 @@
 
             <TextView
                 android:textColor="@color/color_black"
-                android:textSize="17sp"
+                android:textSize="15sp"
                 android:id="@+id/tvName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="name"/>
+               />
 
             <TextView
                 android:textColor="@color/color_gray_bold"
-                android:textSize="14sp"
+                android:textSize="12sp"
                 android:id="@+id/tvNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="number"/>
+                />
         </LinearLayout>
 
         <ImageView

@@ -25,4 +25,16 @@
     <string name="action_logout">Logout</string>
     <string name="action_mark_all_read">Mark All as Read</string>
     <string name="privacy_policy">Privacy Policy</string>
+
+    <!-- Setting-->
+    <string name="txt_blink">Blink Light</string>
+    <string name="txt_blink_des">Blink light while screen is locked</string>
+    <string name="txt_stop_blink">Stop light flashes using power button</string>
+    <string name="txt_turn_off">Turn off flash when battery below</string>
+    <string name="txt_night_mode">Night mode</string>
+    <string name="txt_flash_call">Flash on call</string>
+    <string name="txt_flash_sms">Flash on SMS</string>
+    <string name="txt_default">Set default</string>
+    <string name="txt_flash_noti">Flash on notification</string>
+    <string name="txt_none">None</string>
 </resources>
