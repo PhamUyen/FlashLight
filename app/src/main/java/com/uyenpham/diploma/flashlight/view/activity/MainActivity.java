@@ -65,15 +65,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        View decorView = getWindow().getDecorView();
-        int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
-        decorView.setSystemUiVisibility(uiOptions);
-        ActionBar actionBar = getActionBar();
-        if(actionBar!= null){
-            actionBar.hide();
-        }
-
+        hideActionBar();
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1 && !checkPermission()) {
             requestPermission();
         }
@@ -107,9 +99,22 @@ public class MainActivity extends AppCompatActivity {
             CURRENT_TAG = TAG_HOME;
             loadHomeFragment();
         }
-//        fragmentManager = getSupportFragmentManager();
-//        SwitchFlashFragment fragment = new SwitchFlashFragment();
-//        replaceFragmentAddToBackStack(fragment, fragmentManager);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        hideActionBar();
+    }
+
+    private void hideActionBar() {
+        View decorView = getWindow().getDecorView();
+        int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
+        decorView.setSystemUiVisibility(uiOptions);
+        ActionBar actionBar = getActionBar();
+        if (actionBar != null) {
+            actionBar.hide();
+        }
     }
 
     /***
@@ -123,6 +128,7 @@ public class MainActivity extends AppCompatActivity {
         txtWebsite.setText("www.androidhive.info");
         // showing dot next to notifications label
     }
+
     /***
      * Returns respected fragment that user
      * selected from navigation menu
@@ -303,7 +309,7 @@ public class MainActivity extends AppCompatActivity {
         // disable receiver and finish app if not allow
         if (PERMISSIONS_REQ_CODE == requestCode) {
             if (grantResults.length > 0) {
-                if (grantResults[0] == PackageManager.PERMISSION_GRANTED &&grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
                     Toast.makeText(this, "permissrion granted", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -312,7 +318,7 @@ public class MainActivity extends AppCompatActivity {
 
     private boolean checkPermission() {
         int FirstPermissionResult = ContextCompat.checkSelfPermission(getApplicationContext(),
-               android.Manifest.permission.ACCESS_FINE_LOCATION);
+                android.Manifest.permission.ACCESS_FINE_LOCATION);
         int SecondPermissionResult = ContextCompat.checkSelfPermission(getApplicationContext(),
                 CAMERA);
         return FirstPermissionResult == PackageManager.PERMISSION_GRANTED &&
@@ -322,7 +328,7 @@ public class MainActivity extends AppCompatActivity {
     //send request permission for camera(flash)
     private void requestPermission() {
         ActivityCompat.requestPermissions(this, new String[]
-                { android.Manifest.permission.ACCESS_FINE_LOCATION,
+                {android.Manifest.permission.ACCESS_FINE_LOCATION,
                         CAMERA
                 }, PERMISSIONS_REQ_CODE);
 
