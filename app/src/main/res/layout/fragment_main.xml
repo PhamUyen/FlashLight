@@ -40,17 +40,21 @@
                 android:layout_marginTop="-5dp"
                 android:src="@drawable/seek_bar_progress"/>
             <TextView
+                android:textSize="15sp"
+                android:textColor="@color/color_white"
+                android:id="@+id/tvCoordinates"
                 android:layout_marginTop="10dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@mipmap/compass_text_label"/>
             <TextView
+                android:id="@+id/tvNotiNoCompass"
                 android:visibility="gone"
                 android:layout_marginTop="5dp"
                 android:textColor="#ffffff"
                 android:layout_gravity="center_horizontal"
-                android:text="your device................"
+                android:text="The compass of the device is not available!"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
             <RelativeLayout
@@ -64,6 +68,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
                 <ImageView
+                    android:id="@+id/imvCompass"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@mipmap/pointer"/>
@@ -86,7 +91,7 @@
                     android:id="@+id/button_switch"
                     android:layout_width="120dp"
                     android:layout_height="120dp"
-                    android:src="@mipmap/switch_off"/>
+                    android:src="@mipmap/btn_off"/>
             </RelativeLayout>
         </LinearLayout>
     </LinearLayout>
