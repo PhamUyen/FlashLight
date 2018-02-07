@@ -9,20 +9,37 @@ import java.io.Serializable;
  * Created by Ka on 2/4/2018.
  */
 
-public class App implements Serializable{
+public class App implements Serializable {
     private Bitmap icon;
     private String name;
-    private boolean isFlash;
+    private int isFlash;
     private int patternFlash;
+    private String id;
 
     public App() {
     }
 
-    public App(Bitmap icon, String name, boolean isFlash, int patternFlash) {
+    public App(Bitmap icon, String name, int isFlash, int patternFlash) {
         this.icon = icon;
         this.name = name;
         this.isFlash = isFlash;
         this.patternFlash = patternFlash;
+    }
+
+    public App(String id, String name, Bitmap icon, int isFlash, int patternFlash) {
+        this.icon = icon;
+        this.name = name;
+        this.isFlash = isFlash;
+        this.patternFlash = patternFlash;
+        this.id = id;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public Bitmap getIcon() {
@@ -41,11 +58,11 @@ public class App implements Serializable{
         this.name = name;
     }
 
-    public boolean isFlash() {
+    public int isFlash() {
         return isFlash;
     }
 
-    public void setFlash(boolean flash) {
+    public void setFlash(int flash) {
         isFlash = flash;
     }
 

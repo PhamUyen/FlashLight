@@ -73,14 +73,14 @@ public class SettingPatternFlashActivity extends Activity implements View.OnClic
             if (contact != null) {
                 tvName.setText(contact.getName());
                 tvNumber.setText(contact.getNumber());
-                switchCall.setChecked(contact.isFlashCall());
-                switchSMS.setChecked(contact.isFlashSMS());
+                switchCall.setChecked(contact.isFlashCall()==1);
+                switchSMS.setChecked(contact.isFlashSMS() ==1);
             }
         } else {
             tvTitle.setText("Notification");
             tvName.setText(bundle.getString(Const.KEY_NAME));
             imvProfile.setImageBitmap((Bitmap) bundle.getParcelable(Const.KEY_IMAGE));
-            switchSMS.setChecked(bundle.getBoolean(Const.KEY_FLASH));
+            switchSMS.setChecked(bundle.getInt(Const.KEY_FLASH) ==1);
             tvBack.setText("Application");
             lnSecond.setVisibility(View.GONE);
             tvNumber.setVisibility(View.GONE);

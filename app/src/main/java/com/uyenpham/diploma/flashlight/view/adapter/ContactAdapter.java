@@ -45,7 +45,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ReHolder
         Contact contact = listContact.get(position);
         holder.tvNumber.setText(contact.getNumber());
         holder.tvName.setText(contact.getName());
-        if(contact.isFlashCall() || contact.isFlashSMS()){
+        if(contact.isFlashCall() == 1 || contact.isFlashSMS() ==1){
             holder.imvStatus.setImageResource(R.mipmap.flash_on);
         }else {
             holder.imvStatus.setImageResource(R.mipmap.flash_off);

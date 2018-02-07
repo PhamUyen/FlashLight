@@ -74,7 +74,7 @@ public class ContactFragment extends android.support.v4.app.Fragment implements 
                     while (pCur.moveToNext()) {
                         String phoneNo = pCur.getString(pCur.getColumnIndex(
                                 ContactsContract.CommonDataKinds.Phone.NUMBER));
-                        Contact contact = new Contact(name, phoneNo, false, false, 1, 1);
+                        Contact contact = new Contact(name, phoneNo, 0, 0, 1, 1);
                         listContact.add(contact);
                         adapter.notifyDataSetChanged();
                     }

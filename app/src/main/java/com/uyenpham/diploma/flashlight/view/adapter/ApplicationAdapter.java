@@ -44,7 +44,7 @@ public class ApplicationAdapter extends RecyclerView.Adapter<ApplicationAdapter.
     public void onBindViewHolder(ApplicationAdapter.ReHolder holder, final int position) {
         App app = listApp.get(position);
         holder.tvName.setText(app.getName());
-        if (app.isFlash()) {
+        if (app.isFlash() ==1) {
             holder.imvStatus.setImageResource(R.mipmap.flash_on);
             holder.tvNumber.setText(""+app.getPatternFlash());
         } else {

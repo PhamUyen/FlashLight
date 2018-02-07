@@ -9,15 +9,16 @@ import java.io.Serializable;
 public class Contact implements Serializable {
     private String name;
     private String number;
-    private boolean isFlashCall;
-    private boolean isFlashSMS;
+    private int isFlashCall;
+    private int isFlashSMS;
     private int patternSMS;
     private int patternCall;
+    private String id;
 
     public Contact() {
     }
 
-    public Contact(String name, String number, boolean isFlashCall, boolean isFlashSMS, int
+    public Contact(String name, String number, int isFlashCall, int isFlashSMS, int
             patternSMS, int patternCall) {
         this.name = name;
         this.number = number;
@@ -27,9 +28,27 @@ public class Contact implements Serializable {
         this.patternCall = patternCall;
     }
 
+    public Contact(String id,String name, String number, int isFlashCall, int isFlashSMS, int patternCall,  int patternSMS ) {
+        this.name = name;
+        this.number = number;
+        this.isFlashCall = isFlashCall;
+        this.isFlashSMS = isFlashSMS;
+        this.patternSMS = patternSMS;
+        this.patternCall = patternCall;
+        this.id = id;
+    }
+
     public Contact(String name, String number) {
         this.name = name;
         this.number = number;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -48,19 +67,19 @@ public class Contact implements Serializable {
         this.number = number;
     }
 
-    public boolean isFlashCall() {
+    public int isFlashCall() {
         return isFlashCall;
     }
 
-    public void setFlashCall(boolean flashCall) {
+    public void setFlashCall(int flashCall) {
         isFlashCall = flashCall;
     }
 
-    public boolean isFlashSMS() {
+    public int isFlashSMS() {
         return isFlashSMS;
     }
 
-    public void setFlashSMS(boolean flashSMS) {
+    public void setFlashSMS(int flashSMS) {
         isFlashSMS = flashSMS;
     }
 

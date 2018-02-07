@@ -59,7 +59,7 @@ public class ApplicationFragment extends Fragment implements IRecycleListener{
             try {
                 if (null != packageManager.getLaunchIntentForPackage(info.packageName)) {
                     if ((info.flags & ApplicationInfo.FLAG_SYSTEM) != 1) {
-                        applist.add(new App(((BitmapDrawable)info.loadIcon(packageManager)).getBitmap(),info.loadLabel(packageManager).toString(),false, 1));
+                        applist.add(new App(((BitmapDrawable)info.loadIcon(packageManager)).getBitmap(),info.loadLabel(packageManager).toString(),0, 1));
 
                     }
                 }
@@ -76,7 +76,7 @@ public class ApplicationFragment extends Fragment implements IRecycleListener{
         Bundle bundle = new Bundle();
         bundle.putString(Const.KEY_NAME, listApp.get(position).getName());
         bundle.putParcelable(Const.KEY_IMAGE,listApp.get(position).getIcon());
-        bundle.putBoolean(Const.KEY_FLASH, listApp.get(position).isFlash());
+        bundle.putInt(Const.KEY_FLASH, listApp.get(position).isFlash());
         bundle.putInt(Const.KEY_TYPE,Const.TYPE_APP);
         Intent intent = new Intent(getActivity(), SettingPatternFlashActivity.class);
         intent.putExtra(Const.KEY_BUNDLE, bundle);

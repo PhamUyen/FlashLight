@@ -9,11 +9,28 @@ public class FlashPatternt {
     private String timeStr;
     private int time;
     private int tpye;
+    private int id;
 
     public FlashPatternt(String name, int time, String timeStr) {
         this.name = name;
         this.time = time;
         this.timeStr = timeStr;
+    }
+
+    public FlashPatternt(int id,String name, String timeStr, int time, int tpye) {
+        this.name = name;
+        this.timeStr = timeStr;
+        this.time = time;
+        this.tpye = tpye;
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
