@@ -1,10 +1,7 @@
 package com.uyenpham.diploma.flashlight.view.fragment;
 
-import android.content.ContentResolver;
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.uyenpham.diploma.flashlight.FlashlightApplication;
 import com.uyenpham.diploma.flashlight.R;
 import com.uyenpham.diploma.flashlight.model.Contact;
 import com.uyenpham.diploma.flashlight.utils.Const;
@@ -48,43 +46,12 @@ public class ContactFragment extends android.support.v4.app.Fragment implements 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         rcvContact.setLayoutManager(linearLayoutManager);
         rcvContact.setHasFixedSize(true);
-//        rcvContact.addItemDecoration(new RecyclerView.ItemDecoration() ;
         rcvContact.setAdapter(adapter);
     }
 
     private void getContactList() {
-        ContentResolver cr = getActivity().getContentResolver();
-        Cursor cur = cr.query(ContactsContract.Contacts.CONTENT_URI,
-                null, null, null, null);
-
-        if ((cur != null ? cur.getCount() : 0) > 0) {
-            while (cur != null && cur.moveToNext()) {
-                String id = cur.getString(
-                        cur.getColumnIndex(ContactsContract.Contacts._ID));
-                String name = cur.getString(cur.getColumnIndex(
-                        ContactsContract.Contacts.DISPLAY_NAME));
-
-                if (cur.getInt(cur.getColumnIndex(
-                        ContactsContract.Contacts.HAS_PHONE_NUMBER)) > 0) {
-                    Cursor pCur = cr.query(
-                            ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
-                            null,
-                            ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = ?",
-                            new String[]{id}, null);
-                    while (pCur.moveToNext()) {
-                        String phoneNo = pCur.getString(pCur.getColumnIndex(
-                                ContactsContract.CommonDataKinds.Phone.NUMBER));
-                        Contact contact = new Contact(name, phoneNo, 0, 0, 1, 1);
-                        listContact.add(contact);
-                        adapter.notifyDataSetChanged();
-                    }
-                    pCur.close();
-                }
-            }
-        }
-        if (cur != null) {
-            cur.close();
-        }
+        listContact = FlashlightApplication.getInstance().getDatabase().getAllContact();
+        adapter.notifyDataSetChanged();
     }
 
     @Override

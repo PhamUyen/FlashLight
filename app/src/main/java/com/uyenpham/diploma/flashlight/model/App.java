@@ -1,7 +1,7 @@
 package com.uyenpham.diploma.flashlight.model;
 
 import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
 
 import java.io.Serializable;
 
@@ -9,7 +9,7 @@ import java.io.Serializable;
  * Created by Ka on 2/4/2018.
  */
 
-public class App implements Serializable {
+public class App implements Serializable, Comparable<App> {
     private Bitmap icon;
     private String name;
     private int isFlash;
@@ -72,5 +72,10 @@ public class App implements Serializable {
 
     public void setPatternFlash(int patternFlash) {
         this.patternFlash = patternFlash;
+    }
+
+    @Override
+    public int compareTo(@NonNull App app) {
+        return id.compareToIgnoreCase(app.getId());
     }
 }

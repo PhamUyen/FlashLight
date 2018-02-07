@@ -1,8 +1,6 @@
 package com.uyenpham.diploma.flashlight.view.activity;
 
 import android.Manifest;
-import android.app.ActionBar;
-import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -26,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.uyenpham.diploma.flashlight.R;
+import com.uyenpham.diploma.flashlight.utils.CommonFuntions;
 import com.uyenpham.diploma.flashlight.view.fragment.ApplicationFragment;
 import com.uyenpham.diploma.flashlight.view.fragment.ContactFragment;
 import com.uyenpham.diploma.flashlight.view.fragment.SettingFragment;
@@ -49,10 +48,9 @@ public class MainActivity extends AppCompatActivity {
     public static int navItemIndex = 0;
 
     // tags used to attach the fragments
-    private static final String TAG_HOME = "home";
-    private static final String TAG_PHOTOS = "photos";
-    private static final String TAG_MOVIES = "movies";
-    private static final String TAG_NOTIFICATIONS = "notifications";
+    private static final String TAG_HOME = "flash";
+    private static final String TAG_PHOTOS = "contact";
+    private static final String TAG_NOTIFICATIONS = "application";
     private static final String TAG_SETTINGS = "settings";
     public static String CURRENT_TAG = TAG_HOME;
 
@@ -67,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        hideActionBar();
+        CommonFuntions.hideActionBar(this);
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1 && !checkPermission()) {
             requestPermission();
         }
@@ -106,18 +104,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        hideActionBar();
+        CommonFuntions.hideActionBar(this);
     }
 
-    private void hideActionBar() {
-        View decorView = getWindow().getDecorView();
-        int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
-        decorView.setSystemUiVisibility(uiOptions);
-        ActionBar actionBar = getActionBar();
-        if (actionBar != null) {
-            actionBar.hide();
-        }
-    }
 
     /***
      * Load navigation menu header information
@@ -229,11 +218,11 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.nav_home3:
                         navItemIndex = 2;
-                        CURRENT_TAG = TAG_MOVIES;
+                        CURRENT_TAG = TAG_NOTIFICATIONS;
                         break;
                     case R.id.nav_home4:
                         navItemIndex = 3;
-                        CURRENT_TAG = TAG_NOTIFICATIONS;
+                        CURRENT_TAG = TAG_SETTINGS;
                         break;
                     default:
                         navItemIndex = 0;

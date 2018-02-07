@@ -13,7 +13,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.uyenpham.diploma.flashlight.R;
-import com.uyenpham.diploma.flashlight.model.App;
 import com.uyenpham.diploma.flashlight.model.Contact;
 import com.uyenpham.diploma.flashlight.utils.Const;
 
@@ -26,11 +25,11 @@ public class SettingPatternFlashActivity extends Activity implements View.OnClic
     private SwitchCompat switchCall;
     private SwitchCompat switchSMS;
     private Contact contact;
-    private App app;
     private TextView tvName;
     private TextView tvNumber;
     private TextView tvBack;
     private int type;
+    private int patternApp;
     private LinearLayout lnSecond;
     private ImageView imvProfile;
     private TextView tvTitle;
@@ -73,14 +72,15 @@ public class SettingPatternFlashActivity extends Activity implements View.OnClic
             if (contact != null) {
                 tvName.setText(contact.getName());
                 tvNumber.setText(contact.getNumber());
-                switchCall.setChecked(contact.isFlashCall()==1);
-                switchSMS.setChecked(contact.isFlashSMS() ==1);
+                switchCall.setChecked(contact.isFlashCall() == 1);
+                switchSMS.setChecked(contact.isFlashSMS() == 1);
             }
         } else {
             tvTitle.setText("Notification");
             tvName.setText(bundle.getString(Const.KEY_NAME));
             imvProfile.setImageBitmap((Bitmap) bundle.getParcelable(Const.KEY_IMAGE));
-            switchSMS.setChecked(bundle.getInt(Const.KEY_FLASH) ==1);
+            switchSMS.setChecked(bundle.getInt(Const.KEY_FLASH) == 1);
+            patternApp = bundle.getInt(Const.KEY_ID_PATTERN);
             tvBack.setText("Application");
             lnSecond.setVisibility(View.GONE);
             tvNumber.setVisibility(View.GONE);
@@ -102,20 +102,30 @@ public class SettingPatternFlashActivity extends Activity implements View.OnClic
     @Override
     public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
         compoundButton.setChecked(b);
-        int type = 1;
+        int typeContact = 1;
+        int idPattern = 0;
         if (b) {
-            switch (compoundButton.getId()) {
-                case R.id.switchCall:
-                    type = Const.TYPE_PATERN_CALL;
-                    break;
-                case R.id.switchSMS:
-                    type = Const.TYPE_PATERN_SMS;
-                    break;
+            if (Const.TYPE_APP == type) {
+                typeContact = Const.TYPE_PATERN_SMS;
+                idPattern = patternApp;
+            } else {
+                switch (compoundButton.getId()) {
+                    case R.id.switchCall:
+                        typeContact = Const.TYPE_PATERN_CALL;
+                        idPattern = contact.getPatternCall();
+                        break;
+                    case R.id.switchSMS:
+                        typeContact = Const.TYPE_PATERN_SMS;
+                        idPattern = contact.getPatternSMS();
+                        break;
+                }
             }
+
             Bundle bundle = new Bundle();
-            bundle.putInt(Const.KEY_TYPE, type);
-            bundle.putSerializable(Const.KEY_CONTACT, contact);
-            Intent intent = new Intent(SettingPatternFlashActivity.this, ChoosePatternActivity.class);
+            bundle.putInt(Const.KEY_TYPE, typeContact);
+            bundle.putInt(Const.KEY_ID_PATTERN, idPattern);
+            Intent intent = new Intent(SettingPatternFlashActivity.this, ChoosePatternActivity
+                    .class);
             intent.putExtra(Const.KEY_BUNDLE, bundle);
             startActivity(intent);
         }

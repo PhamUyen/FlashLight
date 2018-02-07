@@ -19,4 +19,8 @@ public class Const {
     public static  final String KEY_IMAGE = "image";
     public static  final String KEY_FLASH = "flash";
     public static  final String KEY_BUNDLE = "bundle";
+    public static  final String KEY_ID_PATTERN = "patternID";
+
+    //preference
+    public static  final String KEY_FIRST_INSTALL = "installed";
 }

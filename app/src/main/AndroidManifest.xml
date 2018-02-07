@@ -26,6 +26,7 @@
         android:name="android.hardware.location.gps"
         android:required="true" />
     <application
+        android:name=".FlashlightApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -35,7 +36,7 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyD6O61E1buiIaHU6op2vqPeh0eshqhBqXo" />
-        <activity android:name=".view.activity.MainActivity">
+        <activity android:name=".view.activity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -45,6 +46,7 @@
         <activity android:name=".view.activity.SettingPatternFlashActivity"/>
         <activity android:name=".view.activity.ChoosePatternActivity"/>
         <activity android:name=".view.activity.MapActivity"/>
+        <activity android:name=".view.activity.MainActivity"/>
     </application>
 
 </manifest>

@@ -1,12 +1,14 @@
 package com.uyenpham.diploma.flashlight.model;
 
+import android.support.annotation.NonNull;
+
 import java.io.Serializable;
 
 /**
  * Created by Ka on 2/4/2018.
  */
 
-public class Contact implements Serializable {
+public class Contact implements Serializable, Comparable<Contact> {
     private String name;
     private String number;
     private int isFlashCall;
@@ -97,5 +99,9 @@ public class Contact implements Serializable {
 
     public void setPatternCall(int patternCall) {
         this.patternCall = patternCall;
+    }
+    @Override
+    public int compareTo(@NonNull Contact contact) {
+        return id.compareToIgnoreCase(contact.getId());
     }
 }

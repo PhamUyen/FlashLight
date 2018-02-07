@@ -10,6 +10,7 @@ public class FlashPatternt {
     private int time;
     private int tpye;
     private int id;
+    private int checked;
 
     public FlashPatternt(String name, int time, String timeStr) {
         this.name = name;
@@ -23,6 +24,15 @@ public class FlashPatternt {
         this.time = time;
         this.tpye = tpye;
         this.id = id;
+        this.checked =checked;
+    }
+
+    public int getChecked() {
+        return checked;
+    }
+
+    public void setChecked(int checked) {
+        this.checked = checked;
     }
 
     public int getId() {

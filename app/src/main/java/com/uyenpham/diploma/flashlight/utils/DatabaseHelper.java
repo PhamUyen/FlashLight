@@ -151,16 +151,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      */
     public boolean deleteContact(String id) {
         SQLiteDatabase db = this.getWritableDatabase();
-        return db.delete(TABLE_CONTACT, COLUMN_CONTACT_ID + "=  '" + id + "'", null) > 0;
+        return db.delete(TABLE_CONTACT, COLUMN_CONTACT_ID + " =  '" + id + "'", null) > 0;
     }
     public boolean deleteApp(String id) {
         SQLiteDatabase db = this.getWritableDatabase();
-        return db.delete(TABLE_APP, COLUMN_APP_ID + "=  '" + id + "'", null) > 0;
+        return db.delete(TABLE_APP, COLUMN_APP_ID + " =  '" + id + "'", null) > 0;
     }
 
     public boolean deletePattern(String id) {
         SQLiteDatabase db = this.getWritableDatabase();
-        return db.delete(TABLE_PATTERN, COLUMN_PATTERN_ID + "=  '" + id + "'", null) > 0;
+        return db.delete(TABLE_PATTERN, COLUMN_PATTERN_ID + " =  '" + id + "'", null) > 0;
     }
     /**
      * get user info
@@ -170,7 +170,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public Contact getContactByID(String id) {
         Contact contact = null;
         SQLiteDatabase db = this.getReadableDatabase();
-        String sql = "SELECT * FROM " + TABLE_CONTACT +"WHERE "+COLUMN_CONTACT_ID+ "= '" + id +"'";
+        String sql = "SELECT * FROM " + TABLE_CONTACT +" WHERE "+COLUMN_CONTACT_ID+ " = '" + id +"'";
         Cursor cursor = db.rawQuery(sql, null);
         if (cursor.moveToFirst()) {
             do {
@@ -184,7 +184,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public App getAppByID(String id) {
         App app = null;
         SQLiteDatabase db = this.getReadableDatabase();
-        String sql = "SELECT * FROM " + TABLE_APP +"WHERE "+COLUMN_APP_ID+ "= '" + id +"'";
+        String sql = "SELECT * FROM " + TABLE_APP +" WHERE "+COLUMN_APP_ID+ " = '" + id +"'";
         Cursor cursor = db.rawQuery(sql, null);
         if (cursor.moveToFirst()) {
             do {
@@ -198,12 +198,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public FlashPatternt getPattertByID(int id) {
         FlashPatternt patternt = null;
         SQLiteDatabase db = this.getReadableDatabase();
-        String sql = "SELECT * FROM " + TABLE_PATTERN +"WHERE "+COLUMN_PATTERN_ID+ "= '" + id +"'";
+        String sql = "SELECT * FROM " + TABLE_PATTERN +" WHERE "+COLUMN_PATTERN_ID+ " = '" + id +"'";
         Cursor cursor = db.rawQuery(sql, null);
         if (cursor.moveToFirst()) {
             do {
                 patternt = new FlashPatternt(cursor.getInt(0), cursor.getString(1), cursor.getString(2),
                         cursor.getInt(3), cursor.getInt(4));
+            } while (cursor.moveToNext());
+        }
+        return patternt;
+    }
+    public ArrayList<FlashPatternt> getPattertByType(int type) {
+        ArrayList<FlashPatternt> patternt = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String sql = "SELECT * FROM " + TABLE_PATTERN +" WHERE "+COLUMN_PATTERN_TYPE+ " = '" + type +"'";
+        Cursor cursor = db.rawQuery(sql, null);
+        if (cursor.moveToFirst()) {
+            do {
+                patternt.add(new FlashPatternt(cursor.getInt(0), cursor.getString(1), cursor.getString(2),
+                        cursor.getInt(3), cursor.getInt(4)));
             } while (cursor.moveToNext());
         }
         return patternt;
@@ -323,30 +336,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return appList;
     }
 
-//    /**
-//     * get user_id from table APPAPI
-//     *
-//     * @return user ID
-//     */
-//    public String getUserIDFromAPPAPITable() {
-//        String userID = null;
-//        SQLiteDatabase db = this.getReadableDatabase();
-//        String sql = "SELECT user_id FROM " + TABLE_APP_SEND_API;
-//        Cursor cursor = db.rawQuery(sql, null);
-//        if (cursor.getCount() > 0) {
-//            cursor.moveToFirst();
-//            userID = cursor.getString(0);
-//        }
-//        return userID;
-//    }
-
-//    /**
-//     * delete all round of table TABLE_CONTACT
-//     *
-//     * @return
-//     */
     public void deleteAllContact() {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("delete from " + TABLE_CONTACT);
+    }
+    public void deleteAllApp() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("delete from " + TABLE_APP);
     }
 }
