@@ -5,6 +5,7 @@
     android:orientation="vertical">
 
     <RelativeLayout
+        android:id="@+id/rltBlink"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp">
@@ -31,6 +32,7 @@
         </LinearLayout>
 
         <android.support.v7.widget.SwitchCompat
+            android:id="@+id/swBlink"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -44,6 +46,7 @@
         android:background="@color/color_gray_bold" />
 
     <RelativeLayout
+        android:id="@+id/rltPower"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp">
@@ -55,6 +58,7 @@
             android:textSize="14sp" />
 
         <android.support.v7.widget.SwitchCompat
+            android:id="@+id/swPower"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -67,6 +71,7 @@
         android:layout_height="1dp"
         android:background="@color/color_gray_bold" />
     <RelativeLayout
+        android:id="@+id/rltBattery"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp">
@@ -78,6 +83,7 @@
             android:textSize="14sp" />
 
         <android.support.v7.widget.SwitchCompat
+            android:id="@+id/swBattery"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -90,6 +96,7 @@
         android:layout_height="1dp"
         android:background="@color/color_gray_bold" />
     <RelativeLayout
+        android:id="@+id/rltNightMode"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp">
@@ -101,6 +108,7 @@
             android:textSize="14sp" />
 
         <android.support.v7.widget.SwitchCompat
+            android:id="@+id/swNight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -113,6 +121,7 @@
         android:layout_height="1dp"
         android:background="@color/color_gray_bold" />
     <RelativeLayout
+        android:id="@+id/rltCall"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp">
@@ -124,6 +133,7 @@
             android:textSize="14sp" />
 
         <android.support.v7.widget.SwitchCompat
+            android:id="@+id/swCall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -136,6 +146,7 @@
         android:layout_height="1dp"
         android:background="@color/color_gray_bold" />
     <RelativeLayout
+        android:id="@+id/rltSMS"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp">
@@ -147,6 +158,7 @@
             android:textSize="14sp" />
 
         <android.support.v7.widget.SwitchCompat
+            android:id="@+id/swSMS"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -159,6 +171,32 @@
         android:layout_height="1dp"
         android:background="@color/color_gray_bold" />
     <RelativeLayout
+        android:id="@+id/rltNoti"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/txt_flash_noti"
+            android:textSize="14sp" />
+
+        <android.support.v7.widget.SwitchCompat
+            android:id="@+id/swNoti"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:checked="true" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/color_gray_bold" />
+    <RelativeLayout
+        android:id="@+id/rltDefault"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp">
@@ -170,6 +208,7 @@
             android:textSize="14sp" />
 
         <android.support.v7.widget.SwitchCompat
+            android:id="@+id/swDefault"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"

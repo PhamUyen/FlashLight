@@ -23,4 +23,12 @@ public class Const {
 
     //preference
     public static  final String KEY_FIRST_INSTALL = "installed";
+    public static final String KEY_NIGHT_MODE = "isNightMode";
+    public static final String KEY_ALLOW_FLASH_CALL ="allowFlashCall";
+    public static final String KEY_ALLOW_FLASH_SMS ="allowFlashSMS";
+    public static final String KEY_ALLOW_FLASH_Noti ="allowFlashNoti";
+    public static final String KEY_FLASH_WHEN_LOCK = "flashWhenLock";
+    public static final String KEY_TURN_BY_POWER= "isTurnByPower";
+    public static final String KEY_LOW_BATTERY ="lowBattery";
+    public static final String KEY_SET_DEFAULT ="default";
 }

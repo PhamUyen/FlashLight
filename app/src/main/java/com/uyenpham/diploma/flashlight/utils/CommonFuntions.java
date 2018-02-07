@@ -4,6 +4,8 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -17,7 +19,11 @@ import com.uyenpham.diploma.flashlight.model.App;
 import com.uyenpham.diploma.flashlight.model.Contact;
 
 import java.io.ByteArrayOutputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class CommonFuntions {
@@ -125,5 +131,59 @@ public class CommonFuntions {
             }
         }
         return listDevice;
+    }
+
+
+    public float getBatteryLevel(Context context)
+    {
+        Intent localIntent = context.registerReceiver(null, new IntentFilter("android.intent.action.BATTERY_CHANGED"));
+        int i = localIntent.getIntExtra("level", -1);
+        int j = localIntent.getIntExtra("scale", -1);
+        if ((i == -1) || (j == -1)) {
+            return 50.0F;
+        }
+        return 100.0F * (i / j);
+    }
+
+    public static boolean isTimeBetweenTwoTime(String paramString1, String paramString2, String paramString3)
+            throws ParseException
+    {
+        if ((paramString1.matches("^([0-1][0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])$")) && (paramString2.matches("^([0-1][0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])$")) && (paramString3.matches("^([0-1][0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])$")))
+        {
+            Date localDate1 = new SimpleDateFormat("HH:mm:ss").parse(paramString1);
+            Calendar localCalendar1 = Calendar.getInstance();
+            localCalendar1.setTime(localDate1);
+            Date localDate2 = new SimpleDateFormat("HH:mm:ss").parse(paramString3);
+            Calendar localCalendar2 = Calendar.getInstance();
+            localCalendar2.setTime(localDate2);
+            Date localDate3 = new SimpleDateFormat("HH:mm:ss").parse(paramString2);
+            Calendar localCalendar3 = Calendar.getInstance();
+            localCalendar3.setTime(localDate3);
+            if (localDate2.compareTo(localDate3) < 0)
+            {
+                localCalendar2.add(5, 1);
+                localDate2 = localCalendar2.getTime();
+            }
+            if (localDate1.compareTo(localDate3) < 0)
+            {
+                localCalendar1.add(5, 1);
+                localDate1 = localCalendar1.getTime();
+            }
+            if (localDate2.before(localDate1)) {
+                return false;
+            }
+            if (localDate2.after(localDate3))
+            {
+                localCalendar3.add(5, 1);
+                localDate3 = localCalendar3.getTime();
+            }
+            if (localDate2.before(localDate3))
+            {
+                System.out.println("RESULT, Time lies b/w");
+                return true;
+            }
+            return false;
+        }
+        throw new IllegalArgumentException("Not a valid time, expecting HH:MM:SS format");
     }
 }

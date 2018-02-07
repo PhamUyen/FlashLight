@@ -47,6 +47,11 @@
         <activity android:name=".view.activity.ChoosePatternActivity"/>
         <activity android:name=".view.activity.MapActivity"/>
         <activity android:name=".view.activity.MainActivity"/>
+        <receiver android:name=".PhoneStateReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.PHONE_STATE" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
