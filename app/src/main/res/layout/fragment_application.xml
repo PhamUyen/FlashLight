@@ -9,8 +9,11 @@
         android:layout_height="wrap_content">
 
     </android.support.v7.widget.SearchView>
-
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
     <android.support.v7.widget.RecyclerView
+        android:visibility="gone"
         android:id="@+id/rcvApp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -22,4 +25,25 @@
         >
 
     </android.support.v7.widget.RecyclerView>
+    <RelativeLayout
+        android:id="@+id/rltNotFound"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/image"
+            android:layout_centerInParent="true"
+            android:src="@mipmap/contactnotfound"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:text="Not found"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/image"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvNotFound"/>
+    </RelativeLayout>
+</RelativeLayout>
 </LinearLayout>

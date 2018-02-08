@@ -165,12 +165,17 @@
                     android:layout_height="wrap_content"
                     android:text="On time"/>
                 <TextView
+                    android:gravity="center"
+                    android:paddingBottom="5dp"
+                    android:paddingTop="5dp"
+                    android:background="@drawable/bg_textview"
                     android:id="@+id/tvTimeOn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="12:00 AM"/>
             </LinearLayout>
             <LinearLayout
+                android:layout_marginLeft="10dp"
                 android:orientation="vertical"
                 android:layout_weight="1"
                 android:layout_width="0dp"
@@ -180,6 +185,10 @@
                     android:layout_height="wrap_content"
                     android:text="Off time"/>
                 <TextView
+                    android:gravity="center"
+                    android:paddingBottom="5dp"
+                    android:paddingTop="5dp"
+                    android:background="@drawable/bg_textview"
                     android:id="@+id/tvTimeOff"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

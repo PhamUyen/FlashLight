@@ -2,6 +2,7 @@ package com.uyenpham.diploma.flashlight.utils;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.KeyguardManager;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -12,9 +13,12 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.os.Handler;
 import android.provider.ContactsContract;
+import android.telephony.TelephonyManager;
 import android.view.View;
 
+import com.uyenpham.diploma.flashlight.R;
 import com.uyenpham.diploma.flashlight.model.App;
 import com.uyenpham.diploma.flashlight.model.Contact;
 
@@ -25,6 +29,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
+import static com.uyenpham.diploma.flashlight.view.fragment.SwitchFlashFragment.isFlash;
 
 public class CommonFuntions {
     // convert from bitmap to byte array
@@ -134,7 +140,7 @@ public class CommonFuntions {
     }
 
 
-    public float getBatteryLevel(Context context)
+    public static float getBatteryLevel(Context context)
     {
         Intent localIntent = context.registerReceiver(null, new IntentFilter("android.intent.action.BATTERY_CHANGED"));
         int i = localIntent.getIntExtra("level", -1);
@@ -185,5 +191,41 @@ public class CommonFuntions {
             return false;
         }
         throw new IllegalArgumentException("Not a valid time, expecting HH:MM:SS format");
+    }
+    public static boolean Isscreenlocked(Context context)
+    {
+        if (((KeyguardManager)context.getSystemService(Context.KEYGUARD_SERVICE)).inKeyguardRestrictedInputMode())
+        {
+            return true;
+        }
+        return false;
+    }
+    public static String GetCountryZipCode(Context context) {
+        String str1 = "";
+        String str2 = ((TelephonyManager)context.getSystemService(Context.TELEPHONY_SERVICE)).getSimCountryIso().toUpperCase();
+        String[] arrayOfString1 = context.getResources().getStringArray(R.array.CountryCodes);
+        for (int i = 0;i < arrayOfString1.length; i++) {
+                String[] arrayOfString2 = arrayOfString1[i].split(",");
+                if (arrayOfString2[1].trim().equals(str2.trim())) {
+                    str1 = arrayOfString2[0];
+                }
+        }
+        return str1;
+    }
+    public static void tryFlash(int time,Context context) {
+        setTimeOff(time);
+        FlashUtil.flickerFlash(context);
+        isFlash = true;
+    }
+
+    private static void setTimeOff(int time) {
+        if (time != 0) {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    FlashUtil.stopFlickerFlash();
+                }
+            }, time);
+        }
     }
 }

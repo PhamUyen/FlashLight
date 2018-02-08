@@ -181,6 +181,25 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         return contact;
     }
+    /**
+     * get user info
+     *
+     * @return contact objectF
+     */
+    public Contact getContactByNumber(String id) {
+        Contact contact = null;
+        SQLiteDatabase db = this.getReadableDatabase();
+        String sql = "SELECT * FROM " + TABLE_CONTACT +" WHERE "+COLUMN_NUMBER+ " = '" + id +"'";
+        Cursor cursor = db.rawQuery(sql, null);
+        if (cursor.moveToFirst()) {
+            do {
+                contact = new Contact(cursor.getString(0), cursor.getString(1), cursor.getString(2),
+                        cursor.getInt(3), cursor.getInt(4)
+                        , cursor.getInt(5), cursor.getInt(6));
+            } while (cursor.moveToNext());
+        }
+        return contact;
+    }
     public App getAppByID(String id) {
         App app = null;
         SQLiteDatabase db = this.getReadableDatabase();

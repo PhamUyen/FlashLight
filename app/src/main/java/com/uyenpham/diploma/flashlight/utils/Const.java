@@ -31,4 +31,7 @@ public class Const {
     public static final String KEY_TURN_BY_POWER= "isTurnByPower";
     public static final String KEY_LOW_BATTERY ="lowBattery";
     public static final String KEY_SET_DEFAULT ="default";
+    public static final String KEY_PERCENT_BATTERY ="percent";
+    public static final String KEY_TIME_OFF ="timeOff";
+    public static final String KEY_TIME_ON ="timeOn";
 }
