@@ -12,6 +12,7 @@ public class Const {
     public static final int TYPE_APP = 3;
     public static final int TYPE_CONTACT = 4;
     //key bundle
+    public static  final String KEY_TYPE_PATTERN = "keyPattern";
     public static  final String KEY_TYPE = "key";
     public static  final String KEY_CONTACT = "contact";
     public static  final String KEY_APP = "app";
@@ -20,6 +21,8 @@ public class Const {
     public static  final String KEY_FLASH = "flash";
     public static  final String KEY_BUNDLE = "bundle";
     public static  final String KEY_ID_PATTERN = "patternID";
+    public static  final String KEY_ID_APP = "appID";
+    public static  final String KEY_ID_OBJ = "objID";
 
     //preference
     public static  final String KEY_FIRST_INSTALL = "installed";

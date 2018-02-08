@@ -42,6 +42,15 @@ public class ApplicationFragment extends Fragment implements IRecycleListener,Se
         initData();
         return view;
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        listApp.clear();
+        listApp = FlashlightApplication.getInstance().getDatabase().getAllApp();
+        setAdapter(listApp,getActivity());
+    }
+
     private void initView(View view){
         rcvApp = view.findViewById(R.id.rcvApp);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
@@ -50,6 +59,7 @@ public class ApplicationFragment extends Fragment implements IRecycleListener,Se
 
         rltNotFound = view.findViewById(R.id.rltNotFound);
         tvNotfound = view.findViewById(R.id.tvNotFound);
+        searchView =view.findViewById(R.id.search);
         searchView.setOnQueryTextListener(this);
         searchView.setOnCloseListener(new SearchView.OnCloseListener() {
             @Override
@@ -87,6 +97,7 @@ public class ApplicationFragment extends Fragment implements IRecycleListener,Se
         bundle.putInt(Const.KEY_FLASH, listApp.get(position).isFlash());
         bundle.putInt(Const.KEY_TYPE,Const.TYPE_APP);
         bundle.putInt(Const.KEY_ID_PATTERN,listApp.get(position).getPatternFlash());
+        bundle.putString(Const.KEY_ID_APP,listApp.get(position).getId());
         Intent intent = new Intent(getActivity(), SettingPatternFlashActivity.class);
         intent.putExtra(Const.KEY_BUNDLE, bundle);
         startActivity(intent);

@@ -10,8 +10,12 @@ import android.view.View;
 
 import com.uyenpham.diploma.flashlight.FlashlightApplication;
 import com.uyenpham.diploma.flashlight.R;
+import com.uyenpham.diploma.flashlight.model.App;
+import com.uyenpham.diploma.flashlight.model.Contact;
 import com.uyenpham.diploma.flashlight.model.FlashPatternt;
+import com.uyenpham.diploma.flashlight.utils.CommonFuntions;
 import com.uyenpham.diploma.flashlight.utils.Const;
+import com.uyenpham.diploma.flashlight.utils.DatabaseHelper;
 import com.uyenpham.diploma.flashlight.view.adapter.PatternAdapter;
 
 import java.util.ArrayList;
@@ -20,8 +24,14 @@ public class ChoosePatternActivity extends AppCompatActivity implements View.OnC
     private ArrayList<FlashPatternt> listPattern;
     private RecyclerView rcvPattern;
     private int type;
+    private int typePattern;
     private int idPattern;
     private PatternAdapter adapter;
+    private int choosePatternID;
+    private String idObj;
+    private Contact contactR;
+    private App app;
+    private DatabaseHelper databaseHelper;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -35,15 +45,20 @@ public class ChoosePatternActivity extends AppCompatActivity implements View.OnC
     private void initView() {
         rcvPattern = findViewById(R.id.rcvPattern);
         findViewById(R.id.tvDone).setOnClickListener(this);
+        findViewById(R.id.imvBack).setOnClickListener(this);
+        findViewById(R.id.tvBack).setOnClickListener(this);
     }
 
     private void initData() {
+        databaseHelper = FlashlightApplication.getInstance().getDatabase();
         Intent intent = getIntent();
         Bundle bundle = intent.getBundleExtra(Const.KEY_BUNDLE);
         type = bundle.getInt(Const.KEY_TYPE);
+        typePattern = bundle.getInt(Const.KEY_TYPE_PATTERN);
         idPattern = bundle.getInt(Const.KEY_ID_PATTERN);
+        idObj =bundle.getString(Const.KEY_ID_OBJ);
 
-        listPattern = FlashlightApplication.getInstance().getDatabase().getPattertByType(type);
+        listPattern = FlashlightApplication.getInstance().getDatabase().getPattertByType(typePattern);
         setChecked();
         adapter = new PatternAdapter(listPattern, this);
         adapter.setListener(this);
@@ -57,11 +72,29 @@ public class ChoosePatternActivity extends AppCompatActivity implements View.OnC
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tvDone:
+                if(type == Const.TYPE_CONTACT){
+                    contactR = FlashlightApplication.getInstance().getDatabase().getContactByID(idObj);
+                    if(typePattern == Const.TYPE_PATERN_CALL){
+                        contactR.setPatternCall(choosePatternID);
+                    }else {
+                        contactR.setPatternSMS(choosePatternID);
+                    }
+                    CommonFuntions.resetListContact(contactR,databaseHelper);
+                }else {
+                    app = FlashlightApplication.getInstance().getDatabase().getAppByID(idObj);
+                    app.setPatternFlash(choosePatternID);
+                    CommonFuntions.resetListApp(app,databaseHelper);
+                }
+                finish();
                 break;
+            case R.id.tvBack:
+            case R.id.imvBack:
+                finish();
             default:
                 break;
         }
     }
+
 
     private void setChecked(){
         for(FlashPatternt patternt :listPattern){
@@ -74,5 +107,6 @@ public class ChoosePatternActivity extends AppCompatActivity implements View.OnC
     @Override
     public void onRadioChecked(int position) {
         adapter.setStateRadioButton(position);
+        choosePatternID =listPattern.get(position).getId();
     }
 }

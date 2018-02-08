@@ -54,7 +54,13 @@ public class ContactFragment extends android.support.v4.app.Fragment implements 
         getContactList();
         return view;
     }
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        listContact.clear();
+        listContact = FlashlightApplication.getInstance().getDatabase().getAllContact();
+        setAdapter(listContact,getActivity());
+    }
     private void initData() {
         listContact = new ArrayList<>();
         adapter = new ContactAdapter(listContact, getActivity());

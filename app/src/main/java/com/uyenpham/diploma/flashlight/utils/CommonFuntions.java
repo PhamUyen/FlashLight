@@ -228,4 +228,30 @@ public class CommonFuntions {
             }, time);
         }
     }
+    public static void resetListContact(Contact contactR, DatabaseHelper databaseHelper){
+        ArrayList<Contact> list = databaseHelper.getAllContact();
+        for (int i =0; i<list.size(); i++){
+            if(list.get(i).getId().equalsIgnoreCase(contactR.getId())){
+                list.set(i,contactR);
+                break;
+            }
+        }
+        databaseHelper.deleteAllContact();
+        for (Contact contact :list){
+            databaseHelper.insertContact(contact);
+        }
+    }
+    public static void resetListApp(App appR, DatabaseHelper databaseHelper){
+        ArrayList<App> list = databaseHelper.getAllApp();
+        for (int i =0; i<list.size(); i++){
+            if(list.get(i).getId().equalsIgnoreCase(appR.getId())){
+                list.set(i,appR);
+                break;
+            }
+        }
+        databaseHelper.deleteAllApp();
+        for (App app :list){
+            databaseHelper.insertApp(app);
+        }
+    }
 }
