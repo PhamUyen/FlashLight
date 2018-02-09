@@ -113,7 +113,12 @@ public class SwitchFlashFragment extends Fragment implements SeekBar.OnSeekBarCh
     public void onStopTrackingTouch(SeekBar seekBar) {
         seekBar.setProgress(convertProgress(progress) * 10);
         textSeekbarView.setEnableText(convertProgress(progress));
-        blinkDelay = 1000 / convertProgress(progress);
+        if(convertProgress(progress)!=0){
+            blinkDelay = 1000 / convertProgress(progress);
+        }else {
+            blinkDelay =0;
+        }
+
         turnOnFlash(blinkDelay);
     }
 

@@ -96,7 +96,7 @@ public class CommonFuntions {
         if (listDB.size() > 0) {
             for (int i = 0; i < listDevice.size(); i++) {
                 for (int j = 0; j < listDB.size(); j++) {
-                    if (listDevice.get(i).compareTo(listDB.get(j)) == 1) {
+                    if (listDevice.get(i).getId().equalsIgnoreCase(listDB.get(j).getId())) {
                         listDevice.get(i).setFlashCall(listDB.get(j).isFlashCall());
                         listDevice.get(i).setFlashSMS(listDB.get(j).isFlashSMS());
                         listDevice.get(i).setPatternCall(listDB.get(j).getPatternCall());
@@ -167,12 +167,12 @@ public class CommonFuntions {
             localCalendar3.setTime(localDate3);
             if (localDate2.compareTo(localDate3) < 0)
             {
-                localCalendar2.add(5, 1);
+                localCalendar2.add(Calendar.DATE, 1);
                 localDate2 = localCalendar2.getTime();
             }
             if (localDate1.compareTo(localDate3) < 0)
             {
-                localCalendar1.add(5, 1);
+                localCalendar1.add(Calendar.DATE, 1);
                 localDate1 = localCalendar1.getTime();
             }
             if (localDate2.before(localDate1)) {
@@ -180,7 +180,7 @@ public class CommonFuntions {
             }
             if (localDate2.after(localDate3))
             {
-                localCalendar3.add(5, 1);
+                localCalendar3.add(Calendar.DATE, 1);
                 localDate3 = localCalendar3.getTime();
             }
             if (localDate2.before(localDate3))

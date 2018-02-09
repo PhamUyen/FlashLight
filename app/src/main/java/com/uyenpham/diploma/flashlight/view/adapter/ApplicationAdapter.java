@@ -9,9 +9,11 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.uyenpham.diploma.flashlight.FlashlightApplication;
 import com.uyenpham.diploma.flashlight.R;
 import com.uyenpham.diploma.flashlight.model.App;
 import com.uyenpham.diploma.flashlight.model.Contact;
+import com.uyenpham.diploma.flashlight.model.FlashPatternt;
 
 import java.util.ArrayList;
 
@@ -43,10 +45,11 @@ public class ApplicationAdapter extends RecyclerView.Adapter<ApplicationAdapter.
     @Override
     public void onBindViewHolder(ApplicationAdapter.ReHolder holder, final int position) {
         App app = listApp.get(position);
+        FlashPatternt patternt = FlashlightApplication.getInstance().getDatabase().getPattertByID(app.getPatternFlash());
         holder.tvName.setText(app.getName());
         if (app.isFlash() ==1) {
             holder.imvStatus.setImageResource(R.mipmap.flash_on);
-            holder.tvNumber.setText(""+app.getPatternFlash());
+            holder.tvNumber.setText(""+patternt.getName());
         } else {
             holder.imvStatus.setImageResource(R.mipmap.flash_off);
             holder.tvNumber.setText(context.getResources().getString(R.string.txt_none));

@@ -10,8 +10,10 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.uyenpham.diploma.flashlight.FlashlightApplication;
 import com.uyenpham.diploma.flashlight.R;
 import com.uyenpham.diploma.flashlight.model.Contact;
+import com.uyenpham.diploma.flashlight.model.FlashPatternt;
 
 import java.util.ArrayList;
 
@@ -43,7 +45,8 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ReHolder
     @Override
     public void onBindViewHolder(ReHolder holder, final int position) {
         Contact contact = listContact.get(position);
-        holder.tvNumber.setText(contact.getNumber());
+        FlashPatternt patternt = FlashlightApplication.getInstance().getDatabase().getPattertByID(contact.getPatternCall());
+        holder.tvNumber.setText(contact.getNumber() + " "+patternt.getName());
         holder.tvName.setText(contact.getName());
         if(contact.isFlashCall() == 1 || contact.isFlashSMS() ==1){
             holder.imvStatus.setImageResource(R.mipmap.flash_on);

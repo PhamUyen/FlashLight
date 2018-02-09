@@ -172,7 +172,7 @@
                     android:id="@+id/tvTimeOn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="12:00 AM"/>
+                    android:text="00:00"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_marginLeft="10dp"
@@ -192,7 +192,7 @@
                     android:id="@+id/tvTimeOff"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="5:00 PM"/>
+                    android:text="05:00"/>
             </LinearLayout>
         </LinearLayout>
     </RelativeLayout>

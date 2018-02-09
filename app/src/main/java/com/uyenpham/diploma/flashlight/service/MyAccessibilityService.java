@@ -28,21 +28,12 @@ import java.util.TimerTask;
 
 import static com.uyenpham.diploma.flashlight.utils.CommonFuntions.isTimeBetweenTwoTime;
 
-/**
- * Created by Ka on 2/8/2018.
- */
-
 public class MyAccessibilityService extends AccessibilityService {
     private final AccessibilityServiceInfo info = new AccessibilityServiceInfo();
-    private static final String TAG = "MyAccessibilityService";
-    private static final String TAGEVENTS = "TAGEVENTS";
-    private String currntApplicationPackage = "";
     public static String Lastpackagename = "parleg";
     float batteryLevel;
-    //    DatabaseHandler dbHandler = null;
     private boolean isInit = false;
     private Timer mTimer;
-    //    SMSThread smsThread;
     String starttime;
     String stoptime;
     int syshour;
@@ -162,8 +153,7 @@ public class MyAccessibilityService extends AccessibilityService {
                 String str = paramAccessibilityEvent.getPackageName().toString();
 //                new ApplicationData();
                 App localApplicationData = FlashlightApplication.getInstance().getDatabase()
-                        .getAppByID(str
-                                .toString());
+                        .getAppByID(str.toString());
                 if ((localApplicationData != null) && (localApplicationData.isFlash() == 1)) {
                     if (PreferenceUtils.getBoolean(this, Const.KEY_FLASH_WHEN_LOCK)) {
                         if ((CommonFuntions.Isscreenlocked(this)) && (PreferenceUtils

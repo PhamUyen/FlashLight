@@ -34,7 +34,6 @@ import static android.Manifest.permission.CAMERA;
 
 public class MainActivity extends AppCompatActivity {
     private final int ID_MAIN_CONTENT = R.id.contentView;
-    private static int PERMISSIONS_REQ_CODE = 1001;
     private FragmentManager fragmentManager;
 
     private NavigationView navigationView;
@@ -66,9 +65,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         CommonFuntions.hideActionBar(this);
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1 && !checkPermission()) {
-            requestPermission();
-        }
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -278,40 +274,4 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-                                           @NonNull int[] grantResults) {
-        //if user allow permission: enable receiver
-        // disable receiver and finish app if not allow
-        if (PERMISSIONS_REQ_CODE == requestCode) {
-            if (grantResults.length > 0) {
-                if (grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED
-                        && grantResults[2] == PackageManager.PERMISSION_GRANTED && grantResults[3] == PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(this, "permissrion granted", Toast.LENGTH_SHORT).show();
-                }
-            }
-        }
-    }
-
-    private boolean checkPermission() {
-        int FirstPermissionResult = ContextCompat.checkSelfPermission(getApplicationContext(),
-                android.Manifest.permission.ACCESS_FINE_LOCATION);
-        int SecondPermissionResult = ContextCompat.checkSelfPermission(getApplicationContext(),
-                CAMERA);
-        int thirdPer = ContextCompat.checkSelfPermission(getApplicationContext(),android.Manifest.permission.READ_CONTACTS);
-        int fourPer = ContextCompat.checkSelfPermission(getApplicationContext(),Manifest.permission.RECEIVE_SMS);
-        return FirstPermissionResult == PackageManager.PERMISSION_GRANTED &&
-                SecondPermissionResult == PackageManager.PERMISSION_GRANTED &&
-                thirdPer == PackageManager.PERMISSION_GRANTED &&
-                fourPer == PackageManager.PERMISSION_GRANTED;
-    }
-
-    //send request permission for camera(flash)
-    private void requestPermission() {
-        ActivityCompat.requestPermissions(this, new String[]
-                {android.Manifest.permission.ACCESS_FINE_LOCATION,
-                        CAMERA,android.Manifest.permission.READ_CONTACTS, Manifest.permission.RECEIVE_SMS
-                }, PERMISSIONS_REQ_CODE);
-
-    }
 }

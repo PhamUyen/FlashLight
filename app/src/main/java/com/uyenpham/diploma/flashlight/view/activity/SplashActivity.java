@@ -1,10 +1,17 @@
 package com.uyenpham.diploma.flashlight.view.activity;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
 import com.uyenpham.diploma.flashlight.FlashlightApplication;
 import com.uyenpham.diploma.flashlight.R;
@@ -18,33 +25,39 @@ import com.uyenpham.diploma.flashlight.utils.PreferenceUtils;
 
 import java.util.ArrayList;
 
+import static android.Manifest.permission.CAMERA;
+
 /**
  * Created by Ka on 2/7/2018.
  */
 
 public class SplashActivity extends AppCompatActivity {
     private DatabaseHelper mDatabae;
+    private static int PERMISSIONS_REQ_CODE = 1001;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         CommonFuntions.hideActionBar(this);
-
         initData();
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                startActivity(new Intent(SplashActivity.this, MainActivity.class));
-                finish();
-            }
-        },4000);
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1 && !checkPermission()) {
+            requestPermission();
+        }else {
+            saveListContact();
+            saveListApp();
+        }
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                startActivity(new Intent(SplashActivity.this, MainActivity.class));
+//                finish();
+//            }
+//        },4000);
     }
 
     private void initData() {
         mDatabae = FlashlightApplication.getInstance().getDatabase();
-        saveListContact();
-        saveListApp();
         if (PreferenceUtils.getBoolean(this, Const.KEY_FIRST_INSTALL, true)) {
             //save
             saveListDefautPattern();
@@ -80,5 +93,42 @@ public class SplashActivity extends AppCompatActivity {
         for(FlashPatternt patternt : list){
             mDatabae.insertPattern(patternt);
         }
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        //if user allow permission: enable receiver
+        // disable receiver and finish app if not allow
+        if (PERMISSIONS_REQ_CODE == requestCode) {
+            if (grantResults.length > 0) {
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED
+                        && grantResults[2] == PackageManager.PERMISSION_GRANTED && grantResults[3] == PackageManager.PERMISSION_GRANTED) {
+                    saveListContact();
+                    saveListApp();
+                }
+            }
+        }
+    }
+
+    private boolean checkPermission() {
+        int FirstPermissionResult = ContextCompat.checkSelfPermission(getApplicationContext(),
+                android.Manifest.permission.ACCESS_FINE_LOCATION);
+        int SecondPermissionResult = ContextCompat.checkSelfPermission(getApplicationContext(),
+                CAMERA);
+        int thirdPer = ContextCompat.checkSelfPermission(getApplicationContext(),android.Manifest.permission.READ_CONTACTS);
+        int fourPer = ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.RECEIVE_SMS);
+        return FirstPermissionResult == PackageManager.PERMISSION_GRANTED &&
+                SecondPermissionResult == PackageManager.PERMISSION_GRANTED &&
+                thirdPer == PackageManager.PERMISSION_GRANTED &&
+                fourPer == PackageManager.PERMISSION_GRANTED;
+    }
+
+    //send request permission for camera(flash)
+    private void requestPermission() {
+        ActivityCompat.requestPermissions(this, new String[]
+                {android.Manifest.permission.ACCESS_FINE_LOCATION,
+                        CAMERA,android.Manifest.permission.READ_CONTACTS, Manifest.permission.RECEIVE_SMS
+                }, PERMISSIONS_REQ_CODE);
+
     }
 }
