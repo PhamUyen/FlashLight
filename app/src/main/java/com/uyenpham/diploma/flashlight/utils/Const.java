@@ -13,6 +13,7 @@ public class Const {
     public static final int TYPE_CONTACT = 4;
     //key bundle
     public static  final String KEY_TYPE_PATTERN = "keyPattern";
+    public static  final String KEY_NAME_PATTERN = "namePattern";
     public static  final String KEY_TYPE = "key";
     public static  final String KEY_CONTACT = "contact";
     public static  final String KEY_APP = "app";

@@ -30,6 +30,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import static com.uyenpham.diploma.flashlight.view.activity.SplashActivity.isGetApp;
+import static com.uyenpham.diploma.flashlight.view.activity.SplashActivity.isGetContact;
 import static com.uyenpham.diploma.flashlight.view.fragment.SwitchFlashFragment.isFlash;
 
 public class CommonFuntions {
@@ -78,7 +80,7 @@ public class CommonFuntions {
                     while (pCur.moveToNext()) {
                         String phoneNo = pCur.getString(pCur.getColumnIndex(
                                 ContactsContract.CommonDataKinds.Phone.NUMBER));
-                        Contact contact = new Contact(id, name, phoneNo, 0, 0, 1, 1);
+                        Contact contact = new Contact(id, name, phoneNo.replace(" ",""), 0, 0, 1, 3);
                         listContact.add(contact);
                     }
                     pCur.close();
@@ -88,6 +90,7 @@ public class CommonFuntions {
         if (cur != null) {
             cur.close();
         }
+        isGetContact =true;
         return listContact;
     }
 
@@ -122,6 +125,7 @@ public class CommonFuntions {
                 e.printStackTrace();
             }
         }
+        isGetApp = true;
         return applist;
     }
     public static ArrayList<App> link2ListApp(ArrayList<App> listDB,
@@ -129,7 +133,7 @@ public class CommonFuntions {
         if (listDB.size() > 0) {
             for (int i = 0; i < listDevice.size(); i++) {
                 for (int j = 0; j < listDB.size(); j++) {
-                    if (listDevice.get(i).compareTo(listDB.get(j)) == 1) {
+                    if (listDevice.get(i).getId().equalsIgnoreCase(listDB.get(j).getId())) {
                         listDevice.get(i).setFlash(listDB.get(j).isFlash());
                         listDevice.get(i).setPatternFlash(listDB.get(j).getPatternFlash());
                     }

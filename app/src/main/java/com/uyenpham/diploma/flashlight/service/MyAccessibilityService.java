@@ -9,6 +9,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.SystemClock;
+import android.util.Log;
 import android.view.accessibility.AccessibilityEvent;
 
 import com.uyenpham.diploma.flashlight.FlashlightApplication;
@@ -46,6 +47,7 @@ public class MyAccessibilityService extends AccessibilityService {
 
     @Override
     public void onCreate() {
+        Log.e("CallReicerver", "onCreate");
         super.onCreate();
         this.mTimer = new Timer();
         this.mTimer.schedule(this.timerTask, 2000L, 2000L);
@@ -68,6 +70,7 @@ public class MyAccessibilityService extends AccessibilityService {
 
     @Override
     public void onAccessibilityEvent(AccessibilityEvent accessibilityEvent) {
+        Log.e("CallReicerver", accessibilityEvent.toString());
         if (PreferenceUtils.getBoolean(this, Const.KEY_NIGHT_MODE, false)) {
             Calendar localCalendar = Calendar.getInstance();
             syshour = localCalendar.get(Calendar.HOUR);
@@ -107,6 +110,7 @@ public class MyAccessibilityService extends AccessibilityService {
 
     @Override
     public void onServiceConnected() {
+        Log.e("CallReicerver", "onServiceConnected");
         {
             if (isInit) {
                 return;
@@ -132,6 +136,7 @@ public class MyAccessibilityService extends AccessibilityService {
     }
 
     public void settingCamera(FlashPatternt flashPatternt) {
+        Log.e("CallReicerver", "MyAccessibilityService");
         try {
             batteryLevel = CommonFuntions.getBatteryLevel(this);
             if (PreferenceUtils.getBoolean(this, Const.KEY_LOW_BATTERY)) {

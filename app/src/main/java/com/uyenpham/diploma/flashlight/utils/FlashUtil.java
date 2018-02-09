@@ -52,9 +52,14 @@ public class FlashUtil {
     public static void flickerFlash(Context context) {
         stopFlickerFlash();
         isFlash =true;
-        if (cam == null) {
-            cam = Camera.open();
+        try {
+            if (cam == null) {
+                cam = Camera.open();
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
+
         mStatusChecker.run();
     }
 

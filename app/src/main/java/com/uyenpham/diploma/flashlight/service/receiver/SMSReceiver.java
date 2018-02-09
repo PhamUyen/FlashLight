@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.telephony.SmsMessage;
+import android.util.Log;
 
 import com.uyenpham.diploma.flashlight.FlashlightApplication;
 import com.uyenpham.diploma.flashlight.model.Contact;
@@ -26,8 +27,6 @@ import java.util.Date;
  */
 
 public class SMSReceiver extends BroadcastReceiver {
-    String Number = "null";
-    float batteryLevel;
     String contrycode = null;
     Contact data = null;
     DatabaseHelper dbHelper = null;
@@ -40,6 +39,7 @@ public class SMSReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent paramIntent) {
+        Log.e("CallReicerver", "isSMS : onReceive");
         dbHelper = FlashlightApplication.getInstance().getDatabase();
         mContext = context;
         if (PreferenceUtils.getBoolean(mContext, Const.KEY_TURN_BY_POWER, false)) {
@@ -54,15 +54,19 @@ public class SMSReceiver extends BroadcastReceiver {
                 smscontactno = arrayOfSmsMessage[i].getOriginatingAddress();
             }
         }
+        Log.e("CallReicerver", "isSMS : "+smscontactno);
         data = dbHelper.getContactByNumber(smscontactno);
         if (data == null) {
+            Log.e("CallReicerver", "+" + CommonFuntions.GetCountryZipCode(mContext));
             contrycode = ("+" + CommonFuntions.GetCountryZipCode(mContext));
-            smscontactno = smscontactno.replace(this.contrycode, "");
+            smscontactno = smscontactno.replace(contrycode, "0");
             smscontactno = smscontactno.replace(" ", "");
             data = dbHelper.getContactByNumber(smscontactno);
+            Log.e("CallReicerver", smscontactno);
         }
         if (data != null && data.isFlashSMS() == 1) {
-            patternt = dbHelper.getPattertByID(data.getPatternCall());
+            Log.e("CallReicerver", data.getNumber() + "isFlash = " + data.isFlashSMS());
+            patternt = dbHelper.getPattertByID(data.getPatternSMS());
             if (PreferenceUtils.getBoolean(context, Const.KEY_NIGHT_MODE, false)) {
                 //check time
                 Calendar localCalendar = Calendar.getInstance();
@@ -124,6 +128,7 @@ public class SMSReceiver extends BroadcastReceiver {
     }
 
     public void settingCamera(FlashPatternt patternt) {
+        Log.e("CallReicerver", "isFlashSMS");
         float batteryLevel = CommonFuntions.getBatteryLevel(mContext);
         if (PreferenceUtils.getBoolean(mContext, Const.KEY_LOW_BATTERY, false)) {
             if (batteryLevel > PreferenceUtils.getInt(mContext, Const.KEY_PERCENT_BATTERY, 20)) {

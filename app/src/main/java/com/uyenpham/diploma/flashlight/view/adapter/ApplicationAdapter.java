@@ -12,7 +12,6 @@ import android.widget.TextView;
 import com.uyenpham.diploma.flashlight.FlashlightApplication;
 import com.uyenpham.diploma.flashlight.R;
 import com.uyenpham.diploma.flashlight.model.App;
-import com.uyenpham.diploma.flashlight.model.Contact;
 import com.uyenpham.diploma.flashlight.model.FlashPatternt;
 
 import java.util.ArrayList;
@@ -49,7 +48,11 @@ public class ApplicationAdapter extends RecyclerView.Adapter<ApplicationAdapter.
         holder.tvName.setText(app.getName());
         if (app.isFlash() ==1) {
             holder.imvStatus.setImageResource(R.mipmap.flash_on);
-            holder.tvNumber.setText(""+patternt.getName());
+            if(patternt!= null){
+                holder.tvNumber.setText(""+patternt.getName());
+            }else {
+                holder.tvNumber.setText(context.getResources().getString(R.string.txt_none));
+            }
         } else {
             holder.imvStatus.setImageResource(R.mipmap.flash_off);
             holder.tvNumber.setText(context.getResources().getString(R.string.txt_none));
@@ -86,5 +89,8 @@ public class ApplicationAdapter extends RecyclerView.Adapter<ApplicationAdapter.
             item = itemView.findViewById(R.id.itemContact);
             imvIconApp = itemView.findViewById(R.id.imvProfile);
         }
+    }
+    public ArrayList<App> getListApp(){
+        return listApp;
     }
 }

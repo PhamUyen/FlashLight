@@ -16,6 +16,7 @@ import com.uyenpham.diploma.flashlight.FlashlightApplication;
 import com.uyenpham.diploma.flashlight.R;
 import com.uyenpham.diploma.flashlight.model.App;
 import com.uyenpham.diploma.flashlight.model.Contact;
+import com.uyenpham.diploma.flashlight.model.FlashPatternt;
 import com.uyenpham.diploma.flashlight.utils.CommonFuntions;
 import com.uyenpham.diploma.flashlight.utils.Const;
 import com.uyenpham.diploma.flashlight.utils.DatabaseHelper;
@@ -40,6 +41,8 @@ public class SettingPatternFlashActivity extends Activity implements View.OnClic
     private LinearLayout lnSecond;
     private ImageView imvProfile;
     private TextView tvTitle;
+    private TextView tvNextCall;
+    private TextView tvNextSMS;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -61,9 +64,9 @@ public class SettingPatternFlashActivity extends Activity implements View.OnClic
         lnSecond = findViewById(R.id.lnSecond);
         imvProfile = findViewById(R.id.imvProfile);
         tvTitle = findViewById(R.id.tvTitle);
+        tvNextCall = findViewById(R.id.tvNextCall);
+        tvNextSMS = findViewById(R.id.tvNextSMS);
         tvBack.setOnClickListener(this);
-        switchSMS.setOnCheckedChangeListener(this);
-        switchCall.setOnCheckedChangeListener(this);
     }
 
     private void initData() {
@@ -83,6 +86,12 @@ public class SettingPatternFlashActivity extends Activity implements View.OnClic
                 tvNumber.setText(contact.getNumber());
                 switchCall.setChecked(contact.isFlashCall() == 1);
                 switchSMS.setChecked(contact.isFlashSMS() == 1);
+                if(contact.isFlashSMS() == 1){
+                    tvNextSMS.setText(databaseHelper.getPattertByID(contact.getPatternSMS()).getName());
+                }
+                if(contact.isFlashCall() == 1){
+                    tvNextCall.setText(databaseHelper.getPattertByID(contact.getPatternCall()).getName());
+                }
             }
         } else {
             tvTitle.setText("Notification");
@@ -90,12 +99,19 @@ public class SettingPatternFlashActivity extends Activity implements View.OnClic
             imvProfile.setImageBitmap((Bitmap) bundle.getParcelable(Const.KEY_IMAGE));
             switchSMS.setChecked(bundle.getInt(Const.KEY_FLASH) == 1);
             patternApp = bundle.getInt(Const.KEY_ID_PATTERN);
-            idApp =bundle.getString(Const.KEY_ID_APP);
-            app = new App(idApp,bundle.getString(Const.KEY_NAME),(Bitmap) bundle.getParcelable(Const.KEY_IMAGE),bundle.getInt(Const.KEY_FLASH),3);
+            idApp = bundle.getString(Const.KEY_ID_APP);
+            app = new App(idApp, bundle.getString(Const.KEY_NAME), (Bitmap) bundle.getParcelable
+                    (Const.KEY_IMAGE), bundle.getInt(Const.KEY_FLASH), 3);
             tvBack.setText("Application");
             lnSecond.setVisibility(View.GONE);
             tvNumber.setVisibility(View.GONE);
+            if(bundle.getInt(Const.KEY_FLASH) == 1){
+                FlashPatternt patternt = databaseHelper.getPattertByID(patternApp);
+                tvNextSMS.setText(patternt.getName());
+            }
         }
+        switchSMS.setOnCheckedChangeListener(this);
+        switchCall.setOnCheckedChangeListener(this);
     }
 
     @Override
@@ -123,7 +139,7 @@ public class SettingPatternFlashActivity extends Activity implements View.OnClic
                 idPattern = patternApp;
                 bundle.putString(Const.KEY_ID_OBJ, idApp);
                 app.setFlash(1);
-                CommonFuntions.resetListApp(app,databaseHelper);
+                CommonFuntions.resetListApp(app, databaseHelper);
             } else {
                 bundle.putString(Const.KEY_ID_OBJ, contact.getId());
                 switch (compoundButton.getId()) {
@@ -131,13 +147,13 @@ public class SettingPatternFlashActivity extends Activity implements View.OnClic
                         typeContact = Const.TYPE_PATERN_CALL;
                         idPattern = contact.getPatternCall();
                         contact.setFlashCall(1);
-                        CommonFuntions.resetListContact(contact,databaseHelper);
+                        CommonFuntions.resetListContact(contact, databaseHelper);
                         break;
                     case R.id.switchSMS:
                         typeContact = Const.TYPE_PATERN_SMS;
                         idPattern = contact.getPatternSMS();
                         contact.setFlashSMS(1);
-                        CommonFuntions.resetListContact(contact,databaseHelper);
+                        CommonFuntions.resetListContact(contact, databaseHelper);
                         break;
                 }
             }
@@ -148,22 +164,36 @@ public class SettingPatternFlashActivity extends Activity implements View.OnClic
             Intent intent = new Intent(SettingPatternFlashActivity.this, ChoosePatternActivity
                     .class);
             intent.putExtra(Const.KEY_BUNDLE, bundle);
-            startActivity(intent);
-        }else {
-            if(type == Const.TYPE_APP){
+            startActivityForResult(intent, 9999);
+        } else {
+            if (type == Const.TYPE_APP) {
                 app.setFlash(0);
-                CommonFuntions.resetListApp(app,databaseHelper);
-            }else {
+                CommonFuntions.resetListApp(app, databaseHelper);
+            } else {
                 switch (compoundButton.getId()) {
                     case R.id.switchCall:
                         contact.setFlashCall(0);
-                        CommonFuntions.resetListContact(contact,databaseHelper);
+                        CommonFuntions.resetListContact(contact, databaseHelper);
                         break;
                     case R.id.switchSMS:
                         contact.setFlashSMS(0);
-                        CommonFuntions.resetListContact(contact,databaseHelper);
+                        CommonFuntions.resetListContact(contact, databaseHelper);
                         break;
                 }
+            }
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 9999 && resultCode == RESULT_OK && data != null) {
+            int id = data.getIntExtra(Const.KEY_ID_PATTERN, 1);
+            FlashPatternt patternt = databaseHelper.getPattertByID(id);
+            if (patternt.getTpye() == Const.TYPE_PATERN_CALL) {
+                tvNextCall.setText(patternt.getName());
+            } else {
+                tvNextSMS.setText(patternt.getName());
             }
         }
     }

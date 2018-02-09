@@ -57,6 +57,7 @@ public class ChoosePatternActivity extends AppCompatActivity implements View.OnC
         typePattern = bundle.getInt(Const.KEY_TYPE_PATTERN);
         idPattern = bundle.getInt(Const.KEY_ID_PATTERN);
         idObj =bundle.getString(Const.KEY_ID_OBJ);
+        choosePatternID =idPattern;
 
         listPattern = FlashlightApplication.getInstance().getDatabase().getPattertByType(typePattern);
         setChecked();
@@ -85,6 +86,9 @@ public class ChoosePatternActivity extends AppCompatActivity implements View.OnC
                     app.setPatternFlash(choosePatternID);
                     CommonFuntions.resetListApp(app,databaseHelper);
                 }
+                Intent intent = new Intent();
+                intent.putExtra(Const.KEY_ID_PATTERN,choosePatternID);
+                setResult(RESULT_OK,intent);
                 finish();
                 break;
             case R.id.tvBack:

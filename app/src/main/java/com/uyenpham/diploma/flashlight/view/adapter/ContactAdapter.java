@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -46,7 +45,15 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ReHolder
     public void onBindViewHolder(ReHolder holder, final int position) {
         Contact contact = listContact.get(position);
         FlashPatternt patternt = FlashlightApplication.getInstance().getDatabase().getPattertByID(contact.getPatternCall());
-        holder.tvNumber.setText(contact.getNumber() + " "+patternt.getName());
+        if(contact.isFlashCall() == 1){
+            if(patternt!= null){
+                holder.tvNumber.setText(contact.getNumber() + " "+patternt.getName());
+            }else {
+                holder.tvNumber.setText(contact.getNumber());
+            }
+        }else {
+            holder.tvNumber.setText(contact.getNumber());
+        }
         holder.tvName.setText(contact.getName());
         if(contact.isFlashCall() == 1 || contact.isFlashSMS() ==1){
             holder.imvStatus.setImageResource(R.mipmap.flash_on);
@@ -82,5 +89,8 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ReHolder
             imvStatus = itemView.findViewById(R.id.imvStatus);
             item = itemView.findViewById(R.id.itemContact);
         }
+    }
+    public ArrayList<Contact> getListContact(){
+        return listContact;
     }
 }

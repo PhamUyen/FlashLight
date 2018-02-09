@@ -92,12 +92,13 @@ public class ApplicationFragment extends Fragment implements IRecycleListener,Se
     @Override
     public void onClick(View view, int position) {
         Bundle bundle = new Bundle();
-        bundle.putString(Const.KEY_NAME, listApp.get(position).getName());
-        bundle.putParcelable(Const.KEY_IMAGE,listApp.get(position).getIcon());
-        bundle.putInt(Const.KEY_FLASH, listApp.get(position).isFlash());
+        App app =adapter.getListApp().get(position);
+        bundle.putString(Const.KEY_NAME, app.getName());
+        bundle.putParcelable(Const.KEY_IMAGE,app.getIcon());
+        bundle.putInt(Const.KEY_FLASH, app.isFlash());
         bundle.putInt(Const.KEY_TYPE,Const.TYPE_APP);
-        bundle.putInt(Const.KEY_ID_PATTERN,listApp.get(position).getPatternFlash());
-        bundle.putString(Const.KEY_ID_APP,listApp.get(position).getId());
+        bundle.putInt(Const.KEY_ID_PATTERN,app.getPatternFlash());
+        bundle.putString(Const.KEY_ID_APP,app.getId());
         Intent intent = new Intent(getActivity(), SettingPatternFlashActivity.class);
         intent.putExtra(Const.KEY_BUNDLE, bundle);
         startActivity(intent);

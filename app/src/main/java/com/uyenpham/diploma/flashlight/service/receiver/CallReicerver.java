@@ -40,6 +40,7 @@ public class CallReicerver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         String state = intent.getStringExtra("state");
+        Log.e("CallReicerver", state);
         if (!state.equals(mLastState)) {
             mLastState = state;
             dbHelper = FlashlightApplication.getInstance().getDatabase();
@@ -50,14 +51,17 @@ public class CallReicerver extends BroadcastReceiver {
         }
         if (state.equals(TelephonyManager.EXTRA_STATE_RINGING)) {
             number = intent.getExtras().getString("incoming_number");
+            Log.e("CallReicerver", number);
             data = dbHelper.getContactByNumber(number);
             if (data == null) {
+                Log.e("CallReicerver", "+" + CommonFuntions.GetCountryZipCode(mContext));
                 contrycode = ("+" + CommonFuntions.GetCountryZipCode(mContext));
-                number = number.replace(this.contrycode, "");
+                number = number.replace(this.contrycode, "0");
                 number = number.replace(" ", "");
                 data = dbHelper.getContactByNumber(number);
             }
             if (data != null && data.isFlashCall() == 1) {
+                Log.e("CallReicerver", data.getNumber());
                 patternt = dbHelper.getPattertByID(data.getPatternCall());
                 if (PreferenceUtils.getBoolean(context, Const.KEY_NIGHT_MODE, false)) {
                     //check time
@@ -113,6 +117,7 @@ public class CallReicerver extends BroadcastReceiver {
     }
 
     private void setStateCall(FlashPatternt patternt) {
+        Log.e("CallReicerver", "isFlash");
         if (CommonFuntions.Isscreenlocked(mContext)) {
             if (PreferenceUtils.getBoolean(mContext, Const.KEY_FLASH_WHEN_LOCK, false)) {
                 settingCameraforcall(patternt);
