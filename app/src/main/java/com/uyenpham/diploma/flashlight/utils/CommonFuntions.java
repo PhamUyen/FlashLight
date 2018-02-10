@@ -80,7 +80,7 @@ public class CommonFuntions {
                     while (pCur.moveToNext()) {
                         String phoneNo = pCur.getString(pCur.getColumnIndex(
                                 ContactsContract.CommonDataKinds.Phone.NUMBER));
-                        Contact contact = new Contact(id, name, phoneNo.replace(" ",""), 0, 0, 1, 3);
+                        Contact contact = new Contact(id, name, phoneNo.replace(" ",""), 1, 1, 1, 3);
                         listContact.add(contact);
                     }
                     pCur.close();

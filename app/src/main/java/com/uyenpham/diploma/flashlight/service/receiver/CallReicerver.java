@@ -60,57 +60,66 @@ public class CallReicerver extends BroadcastReceiver {
                 number = number.replace(" ", "");
                 data = dbHelper.getContactByNumber(number);
             }
-            if (data != null && data.isFlashCall() == 1) {
-                Log.e("CallReicerver", data.getNumber());
-                patternt = dbHelper.getPattertByID(data.getPatternCall());
-                if (PreferenceUtils.getBoolean(context, Const.KEY_NIGHT_MODE, false)) {
-                    //check time
-                    Calendar localCalendar = Calendar.getInstance();
-                    int syshour = localCalendar.get(Calendar.HOUR);
-                    int sysmin = localCalendar.get(Calendar.MINUTE);
-                    int syssecond = localCalendar.get(Calendar.SECOND);
-                    Date localDate = new Date();
-                    localDate.setHours(syshour);
-                    localDate.setMinutes(sysmin);
-                    localDate.setSeconds(syssecond);
-                    SimpleDateFormat localSimpleDateFormat = new SimpleDateFormat("HH:mm:ss");
-                    this.starttime = PreferenceUtils.getString(context, Const.KEY_TIME_ON, "00:00");
-                    this.stoptime = PreferenceUtils.getString(context, Const.KEY_TIME_ON, "05:00");
-                    currenTime = localSimpleDateFormat.format(localDate);
-                    starttime = PreferenceUtils.getString(context, Const.KEY_TIME_ON, "00:00") +
-                            ":00";
-                    stoptime = PreferenceUtils.getString(context, Const.KEY_TIME_ON, "05:00") +
-                            ":00";
-                    if ((starttime.equalsIgnoreCase("00:00:00")) && (stoptime.equalsIgnoreCase
-                            ("05:00:00"))) {
-                        if (PreferenceUtils.getBoolean(context, Const.KEY_ALLOW_FLASH_CALL, true)) {
-                            setStateCall(patternt);
-                        }
-                    } else {
-                        try {
-                            if (CommonFuntions.isTimeBetweenTwoTime(starttime, currenTime,
-                                    stoptime)) {
-                                FlashUtil.stopFlickerFlash();
-                            } else {
+            if (data == null) {
+                FlashUtil.flickerFlash(context);
+            } else {
+                if (data.isFlashCall() == 1) {
+                    Log.e("CallReicerver", data.getNumber());
+                    patternt = dbHelper.getPattertByID(data.getPatternCall());
+                    if (PreferenceUtils.getBoolean(context, Const.KEY_NIGHT_MODE, false)) {
+                        //check time
+                        Calendar localCalendar = Calendar.getInstance();
+                        int syshour = localCalendar.get(Calendar.HOUR);
+                        int sysmin = localCalendar.get(Calendar.MINUTE);
+                        int syssecond = localCalendar.get(Calendar.SECOND);
+                        Date localDate = new Date();
+                        localDate.setHours(syshour);
+                        localDate.setMinutes(sysmin);
+                        localDate.setSeconds(syssecond);
+                        SimpleDateFormat localSimpleDateFormat = new SimpleDateFormat("HH:mm:ss");
+                        this.starttime = PreferenceUtils.getString(context, Const.KEY_TIME_ON,
+                                "00:00");
+                        this.stoptime = PreferenceUtils.getString(context, Const.KEY_TIME_ON,
+                                "05:00");
+                        currenTime = localSimpleDateFormat.format(localDate);
+                        starttime = PreferenceUtils.getString(context, Const.KEY_TIME_ON, "00:00") +
+                                ":00";
+                        stoptime = PreferenceUtils.getString(context, Const.KEY_TIME_ON, "05:00") +
+                                ":00";
+                        if ((starttime.equalsIgnoreCase("00:00:00")) && (stoptime.equalsIgnoreCase
+                                ("05:00:00"))) {
+                            if (PreferenceUtils.getBoolean(context, Const.KEY_ALLOW_FLASH_CALL,
+                                    true)) {
+                                setStateCall(patternt);
+                            }
+                        } else {
+                            try {
+                                if (CommonFuntions.isTimeBetweenTwoTime(starttime, currenTime,
+                                        stoptime)) {
+                                    FlashUtil.stopFlickerFlash();
+                                } else {
+                                    if (PreferenceUtils.getBoolean(context, Const
+                                                    .KEY_ALLOW_FLASH_CALL,
+                                            true)) {
+                                        setStateCall(patternt);
+                                    }
+                                }
+                            } catch (ParseException e) {
+                                e.printStackTrace();
                                 if (PreferenceUtils.getBoolean(context, Const.KEY_ALLOW_FLASH_CALL,
                                         true)) {
                                     setStateCall(patternt);
                                 }
                             }
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                            if (PreferenceUtils.getBoolean(context, Const.KEY_ALLOW_FLASH_CALL,
-                                    true)) {
-                                setStateCall(patternt);
-                            }
                         }
-                    }
-                } else {
-                    if (PreferenceUtils.getBoolean(context, Const.KEY_ALLOW_FLASH_CALL, true)) {
-                        setStateCall(patternt);
+                    } else {
+                        if (PreferenceUtils.getBoolean(context, Const.KEY_ALLOW_FLASH_CALL, true)) {
+                            setStateCall(patternt);
+                        }
                     }
                 }
             }
+
         } else {
             FlashUtil.stopFlickerFlash();
         }

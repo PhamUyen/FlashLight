@@ -109,12 +109,16 @@ public class SplashActivity extends AppCompatActivity {
                         && grantResults[2] == PackageManager.PERMISSION_GRANTED &&
                         grantResults[3] == PackageManager.PERMISSION_GRANTED &&
                         grantResults[4] == PackageManager.PERMISSION_GRANTED) {
-                    saveListContact();
-                    saveListApp();
-                    if (isGetApp && isGetContact) {
-                        startActivity(new Intent(SplashActivity.this, MainActivity.class));
-                        finish();
-                    }
+//                    saveListContact();
+//                    saveListApp();
+//                    if (isGetApp && isGetContact) {
+//                        startActivity(new Intent(SplashActivity.this, MainActivity.class));
+//                        finish();
+//                    }
+                    Intent i = getBaseContext().getPackageManager()
+                            .getLaunchIntentForPackage( getBaseContext().getPackageName() );
+                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(i);
                 }
             }
         }
